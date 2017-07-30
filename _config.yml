@@ -1,16 +1,16 @@
 # Site settings
-title: 读立写生
+title: Maker
 header-img: "img/green.jpg"
 tagline: "cn"  
-description: "陈素封|读而立·写而生"  
+description: "Maker|张明亮"  
 baseurl: ""
-url: "http://cnfeat"  
+url: "http://zhangmingliang"  
 
 # About/contact
 owner: 
-  name: " CnFeat"
-  email: CnFeat@gmail.com
-  bio: "写就是写的报酬"
+  name: " Maker"
+  email: maker68@163.com
+  bio: "maker"
 
 # Data
 gavatar: http://dreamofbook.qiniudn.com/Az..png
@@ -43,7 +43,7 @@ defaults:
       type: "posts"
     values:
       layout: "post"
-      author: "CnFeat"
+      author: "Maker"
       header-img: "img/green.jpg" # We don't want posts without a header image, that whould mean white on white
 
 # Comments 
