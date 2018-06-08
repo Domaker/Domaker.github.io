@@ -1,16 +1,16 @@
 # Site settings
-title: Maker
+title: Domaker
 header-img: "img/green.jpg"
 tagline: "cn"  
-description: "Maker|张明亮"  
+description: "Domaker|张明亮"  
 baseurl: ""
 url: "http://zhangmingliang.me"  
 
 # About/contact
 owner: 
-  name: " Maker"
+  name: " Domaker"
   email: maker68@163.com
-  bio: "maker"
+  bio: "domaker"
 
 # Data
 gavatar: http://dreamofbook.qiniudn.com/Az..png
