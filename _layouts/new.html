@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>{% if page.title %}{{ page.title }}_{{ site.title }}{% else %}{{ site.title }}{% endif %}_Maker</title>
+	<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="{{ '/css/style.css' | prepend: site.baseurl }}">
+	
+</head>
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top">
+	  <div class="container">
+	    <!-- Brand and toggle get grouped for better mobile display -->
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="{{ site.baseurl }}/">Domaker</a>
+	    </div>
+
+	    <!-- Collect the nav links, forms, and other content for toggling -->
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      	<ul class="nav navbar-nav navbar-right text-center">
+	        	<li>
+                    <a href="{{ site.baseurl }}/">Home</a>
+                </li>
+                {% for page in site.pages %}
+                {% if page.title %}
+                <li>
+                    <a href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
+                </li>
+                {% endif %}
+                {% endfor %}
+	      	</ul>
+	    </div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+	{{ content }}
+	<div class="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 text-center">
+					<div class="social-link">
+						<span><a href="https://github.com/Domaker"><i class="fa fa-fw fa-github fa-lg"></i></a></span>
+						<span><a href=""><i class="fa fa-fw fa-wechat fa-lg"></i></a></span>
+						<span><a href="{{ site.baseurl }}/feed.xml"><i class="fa fa-fw fa-rss fa-lg"></i></a></span>
+					</div>
+					<p>© 2018 Domaker ❖ Powered by Jekyll.</p>
+				</div>
+			</div>	
+		</div>
+	</div>
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			if($('.footer').offset().top <= 579){
+				$('.footer').addClass('at-bottom');
+			}else{
+				$('.footer').removeClass('at-bottom');
+			}
+			console.log($('.footer').offset().top)
+		});
+	</script>
+</body>
+</html>

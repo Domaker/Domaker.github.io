@@ -1,0 +1,123 @@
+body{
+	font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+	padding-top:100px;
+	font-size: 16px;
+}
+a{
+	color:#000000;
+}
+a:hover{
+	color:#999;
+	text-decoration: none;
+}
+h1,h2,h3,h4{
+	font-weight:bold;
+}
+p{
+	margin:0px 0px 15px;
+}
+img{
+	width:100%;
+}
+.container{
+	width:970px;
+}
+.navbar-default{
+	background-color: #ffffff;
+	border:0px;
+	box-shadow: 0px 5px 15px rgba(0,0,0,0.05);
+}
+.navbar-nav>li>a{
+	padding:25px;
+	color: #000000;
+} 
+.navbar-default .navbar-brand{
+	color:#000000;
+	padding:25px;
+}
+.navbar-default .navbar-nav>li>a{
+	color:#000000;
+}
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover{
+	background-color: transparent;
+	color: #000000;
+}
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover{
+	color:#000000;
+}
+.panel{
+	box-shadow: none;
+	border-radius: 0px;
+	border-bottom: 1px solid #f2f2f2;
+}
+
+.domaker{
+	background-color: #fcfcfc;
+    margin-bottom: 30px;
+}
+
+.infomation{
+	height: 70vh;
+	align-items: center;
+    display: flex;
+    justify-content: center;
+}
+.infomation .content h1{
+	display: block;
+	font-size: 6em;
+	font-weight: 600;
+	text-shadow: 0px 6px 16px rgba(0,0,0,0.05);
+}
+.infomation .content p{
+	padding: 0px 5px;
+	font-size: 15px;
+}
+.page-title{
+	font-size: 16px;
+	font-weight: bold;
+	color:#999;
+}
+.article-attrs{
+	padding:10px 0px;
+	margin-bottom: 20px;
+}
+.article-attrs span{
+	display: inline-block;
+	padding-right:20px;
+}
+
+.footer{
+	background-color: #ffffff;
+	padding-top:30px;
+	padding-bottom:30px;
+}
+.at-bottom{
+	position: fixed;
+	left:0px;
+	right:0px;
+	width:100%;
+	bottom:0px;
+}
+.social-link{
+	padding:20px 0px;
+}
+.social-link span{
+	display: inline-block;
+	padding:0px 15px;
+	border-right:1px solid #999;
+}
+.social-link span:last-child{
+	border:0px;
+}
+
+.articles-page .panel{
+	margin-bottom: 20px;
+}
+
+.articles-page h1 a{
+	color:#337ab7;
+}
+
+.tags-page .article-li{
+	padding:2px 0px;
+}
