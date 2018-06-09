@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+
+	<title>Mysql按周，月，日分组统计数据_Domaker_blog</title>
+	<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/css/style.css">
+	
+</head>
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top">
+	  <div class="container">
+	    <!-- Brand and toggle get grouped for better mobile display -->
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="/">Domaker</a>
+	    </div>
+
+	    <!-- Collect the nav links, forms, and other content for toggling -->
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      	<ul class="nav navbar-nav navbar-right text-center">
+	        	<li>
+                    <a href="/">Home</a>
+                </li>
+                
+                
+                <li>
+                    <a href="/1_web/">Web</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/2_ba/">BA</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/3_read/">Read</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/4_tags/">Tags</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/5_about/">About</a>
+                </li>
+                
+                
+                
+                
+                
+                
+	      	</ul>
+	    </div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+	<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-md-12 col-lg-12">
+            <!-- Post Content -->
+            <article class="page">
+                    <h1>Mysql按周，月，日分组统计数据</h1>
+                    <div class="article-attrs text-left">
+                        <span>
+                            <i class="fa fa-fw fa-calendar"></i>
+                            2017-10-14
+                        </span>
+                        <span>
+                            <i class="fa fa-fw fa-tags"></i>
+                            
+                            <a href="/2_tags/#php" title="php">php</a>
+                            
+                            <a href="/2_tags/#MySQL" title="MySQL">MySQL</a>
+                            
+                        </span>
+                    </div>
+                    <ul>
+  <li>使用函数：<code class="highlighter-rouge">DATE_FORMAT</code></li>
+  <li>PHP版本要求：<code class="highlighter-rouge">(PHP 5 &gt;= 5.2.0, PHP 7)</code></li>
+  <li>语法：<code class="highlighter-rouge">date_format(object,format)</code></li>
+</ul>
+
+<hr />
+<h2 id="date_format-参数">DATE_FORMAT 参数</h2>
+
+<blockquote>
+  <p>object	必需。规定由 date_create() 返回的 DateTime 对象。
+format	必需。规定日期的格式。</p>
+</blockquote>
+
+<hr />
+<h2 id="完整sql语句">完整SQL语句</h2>
+<blockquote>
+  <p>select DATE_FORMAT(create_time,’%Y%u’) weeks,count(caseid) count from tc_case group by weeks;<br />
+select DATE_FORMAT(create_time,’%Y%m%d’) days,count(caseid) count from tc_case group by days;<br />
+select DATE_FORMAT(create_time,’%Y%m’) months,count(caseid) count from tc_case group by months;</p>
+</blockquote>
+
+<hr />
+<h2 id="修饰符">修饰符</h2>
+
+<ul>
+  <li>%M 月名字(January……December)</li>
+  <li>%W 星期名字(Sunday……Saturday)</li>
+  <li>%D 有英语前缀的月份的日期(1st, 2nd, 3rd, 等等。）</li>
+  <li>%Y 年, 数字, 4 位</li>
+  <li>%y 年, 数字, 2 位</li>
+  <li>%a 缩写的星期名字(Sun……Sat)</li>
+  <li>%d 月份中的天数, 数字(00……31)</li>
+  <li>%e 月份中的天数, 数字(0……31)</li>
+  <li>%m 月, 数字(01……12)</li>
+  <li>%c 月, 数字(1……12)</li>
+  <li>%b 缩写的月份名字(Jan……Dec)</li>
+  <li>%j 一年中的天数(001……366)</li>
+  <li>%H 小时(00……23)</li>
+  <li>%k 小时(0……23)</li>
+  <li>%h 小时(01……12)</li>
+  <li>%I 小时(01……12)</li>
+  <li>%l 小时(1……12)</li>
+  <li>%i 分钟, 数字(00……59)</li>
+  <li>%r 时间,12 小时(hh:mm:ss [AP]M)</li>
+  <li>%T 时间,24 小时(hh:mm:ss)</li>
+  <li>%S 秒(00……59)</li>
+  <li>%s 秒(00……59)</li>
+  <li>%p AM或PM</li>
+  <li>%w 一个星期中的天数(0=Sunday ……6=Saturday ）</li>
+  <li>%U 星期(0……52), 这里星期天是星期的第一天</li>
+  <li>%u 星期(0……52), 这里星期一是星期的第一天</li>
+  <li>%% 一个文字“%”。</li>
+</ul>
+
+                    <div class="text-right">
+                        <img src="http://static.wawmam.com/zhangmingliang.png" style="width:200px;">
+                    </div>
+                    <ul class="pager">
+                        
+                        <li class="previous">
+                            <a href="/web/2017/08/02/PHP-Sort/" data-toggle="tooltip" data-placement="top" title="PHP常用的四种排序"><i class="fa fa-fw fa-arrow-circle-left"></i> Previous Post</a>
+                        </li>
+                        
+                        
+                        <li class="next">
+                            <a href="/web/2017/10/14/ElasticSearch/" data-toggle="tooltip" data-placement="top" title="ElasticSearch入门">Next Post <i class="fa fa-fw fa-arrow-circle-right"></i></a>
+                        </li>
+                        
+                    </ul>
+            </article>
+        </div>
+    </div>
+    
+</div>
+
+
+	<div class="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 text-center">
+					<div class="social-link">
+						<span><a href="https://github.com/Domaker"><i class="fa fa-fw fa-github fa-lg"></i></a></span>
+						<span><a href=""><i class="fa fa-fw fa-wechat fa-lg"></i></a></span>
+						<span><a href="/feed.xml"><i class="fa fa-fw fa-rss fa-lg"></i></a></span>
+					</div>
+					<p>© 2018 Domaker ❖ Powered by Jekyll.</p>
+				</div>
+			</div>	
+		</div>
+	</div>
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			if($('.footer').offset().top <= 579){
+				$('.footer').addClass('at-bottom');
+			}else{
+				$('.footer').removeClass('at-bottom');
+			}
+			console.log($('.footer').offset().top)
+		});
+	</script>
+</body>
+</html>

@@ -3,12 +3,17 @@ layout: new
 title: "Web"
 description: "Web build"  
 ---
-
-
 <div class="container articles-page">
 	<div class="row">
 		<div class="col-xs-12 col-md-12 col-lg-12">
-			{% for category in site.category %}
+			<div class=" domaker infomation">
+                <div class="content text-center">
+                    <h1>Web</h1>
+                    <p><b>网站开发相关记录</b></p>
+                    <p><b>[ Html/JS/CSS、PHP、Redis、ElasticSearch、MYSQL ]</b></p>
+                </div>
+            </div>
+			{% for category in site.categories %}
 			{% if category[0] == "web" %}
 			{% for post in category[1] %}
 			<div class="panel">

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+
+	<title>Web_Domaker_blog</title>
+	<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/css/style.css">
+	
+</head>
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top">
+	  <div class="container">
+	    <!-- Brand and toggle get grouped for better mobile display -->
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="/">Domaker</a>
+	    </div>
+
+	    <!-- Collect the nav links, forms, and other content for toggling -->
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      	<ul class="nav navbar-nav navbar-right text-center">
+	        	<li>
+                    <a href="/">Home</a>
+                </li>
+                
+                
+                <li>
+                    <a href="/1_web/">Web</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/2_ba/">BA</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/3_read/">Read</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/4_tags/">Tags</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/5_about/">About</a>
+                </li>
+                
+                
+                
+                
+                
+                
+	      	</ul>
+	    </div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+	<div class="container articles-page">
+	<div class="row">
+		<div class="col-xs-12 col-md-12 col-lg-12">
+			<div class=" domaker infomation">
+                <div class="content text-center">
+                    <h1>Web</h1>
+                    <p><b>网站开发相关记录</b></p>
+                    <p><b>[ Html/JS/CSS、PHP、Redis、ElasticSearch、MYSQL ]</b></p>
+                </div>
+            </div>
+			
+			
+			
+			<div class="panel">
+				<div class="panel-body">
+					<h1><a href="/web/2018/06/08/The-use-of-redis-to-set-expired-time-in-laravel/">关于redis在laravel中设置过期时间的使用纠正</a></h1>
+					<div class="article-attrs">
+						<span class="pull-left">
+							<i class="fa fa-fw fa-calendar"></i> 2018-06-08
+						</span>
+						<span><i class="fa fa-fw fa-tags"></i> 
+							
+								<a href="/2_tags/#php" title="php">php</a>
+							
+								<a href="/2_tags/#Redis" title="Redis">Redis</a>
+							
+						</span>
+					</div>
+					<p><blockquote>
+  <p>之前在Laravel中初次使用Redis的时候，不知道怎么设置过期时间，因为有很多地方会希望Redis存储一段时间之后自动被清除，所以在网上搜了一下方法，很多地方说的不太正确，以至于走了一次坑，在此记录一下。</p>
+</blockquote>
+
+</p>
+				</div>
+			</div>
+			
+			<div class="panel">
+				<div class="panel-body">
+					<h1><a href="/web/2018/02/11/PHP-deal-image/">文本中base64位图片处理方式</a></h1>
+					<div class="article-attrs">
+						<span class="pull-left">
+							<i class="fa fa-fw fa-calendar"></i> 2018-02-11
+						</span>
+						<span><i class="fa fa-fw fa-tags"></i> 
+							
+								<a href="/2_tags/#php" title="php">php</a>
+							
+						</span>
+					</div>
+					<p><blockquote>
+  <p>使用编辑器撰写文章时很多情况下都需要插入的图片，但是有一部分编辑器会将图片转为base64位编码形式保存到数据库，这种存储会造成数据库存储量庞大，所以需要在存储的时候将base64位编码图片转存到本地，并将本地图片地址替换base64位编码图片。</p>
+</blockquote>
+
+</p>
+				</div>
+			</div>
+			
+			<div class="panel">
+				<div class="panel-body">
+					<h1><a href="/web/2017/10/14/ElasticSearch/">ElasticSearch入门</a></h1>
+					<div class="article-attrs">
+						<span class="pull-left">
+							<i class="fa fa-fw fa-calendar"></i> 2017-10-14
+						</span>
+						<span><i class="fa fa-fw fa-tags"></i> 
+							
+								<a href="/2_tags/#web" title="web">web</a>
+							
+						</span>
+					</div>
+					<p><blockquote>
+  <p>我们建立一个网站或应用程序，并要添加搜索功能，但是想要完成搜索工作的创建是非常困难的。我们希望搜索解决方案要运行速度快，我们希望能有一个零配置和一个完全免费的搜索模式，我们希望能够简单地使用JSON通过HTTP来索引数据，我们希望我们的搜索服务器始终可用，我们希望能够从一台开始并扩展到数百台，我们要实时搜索，我们要简单的多租户，我们希望建立一个云的解决方案。因此我们利用Elasticsearch来解决所有这些问题及可能出现的更多其它问题。</p>
+</blockquote>
+
+</p>
+				</div>
+			</div>
+			
+			<div class="panel">
+				<div class="panel-body">
+					<h1><a href="/web/2017/10/14/PHP-DATE-FORMAT/">Mysql按周，月，日分组统计数据</a></h1>
+					<div class="article-attrs">
+						<span class="pull-left">
+							<i class="fa fa-fw fa-calendar"></i> 2017-10-14
+						</span>
+						<span><i class="fa fa-fw fa-tags"></i> 
+							
+								<a href="/2_tags/#php" title="php">php</a>
+							
+								<a href="/2_tags/#MySQL" title="MySQL">MySQL</a>
+							
+						</span>
+					</div>
+					<p><ul>
+  <li>使用函数：<code class="highlighter-rouge">DATE_FORMAT</code></li>
+  <li>PHP版本要求：<code class="highlighter-rouge">(PHP 5 &gt;= 5.2.0, PHP 7)</code></li>
+  <li>语法：<code class="highlighter-rouge">date_format(object,format)</code></li>
+</ul>
+
+</p>
+				</div>
+			</div>
+			
+			<div class="panel">
+				<div class="panel-body">
+					<h1><a href="/web/2017/08/02/PHP-Sort/">PHP常用的四种排序</a></h1>
+					<div class="article-attrs">
+						<span class="pull-left">
+							<i class="fa fa-fw fa-calendar"></i> 2017-08-02
+						</span>
+						<span><i class="fa fa-fw fa-tags"></i> 
+							
+								<a href="/2_tags/#php" title="php">php</a>
+							
+						</span>
+					</div>
+					<p><h1 id="phpsort">phpsort</h1>
+<p>php常用排序算法整理</p>
+<blockquote>
+  <p>包括了冒泡排序、选择排序、插入排序、快速排序这四种基本排序</p>
+</blockquote>
+
+</p>
+				</div>
+			</div>
+			
+			<div class="panel">
+				<div class="panel-body">
+					<h1><a href="/web/2017/08/01/Sass-Install-Start/">SASS安装与入门</a></h1>
+					<div class="article-attrs">
+						<span class="pull-left">
+							<i class="fa fa-fw fa-calendar"></i> 2017-08-01
+						</span>
+						<span><i class="fa fa-fw fa-tags"></i> 
+							
+								<a href="/2_tags/#sass" title="sass">sass</a>
+							
+								<a href="/2_tags/#css" title="css">css</a>
+							
+						</span>
+					</div>
+					<p><blockquote>
+  <p>Sass号称世界上最成熟、稳定和强大的CSS扩展语言，它扩展了CSS3，增加了规则、变量、混入、选择器、继承等等特性，它生成良好格式化的CSS3代码易于组织和维护。</p>
+</blockquote>
+
+</p>
+				</div>
+			</div>
+			
+			<div class="panel">
+				<div class="panel-body">
+					<h1><a href="/web/2017/08/01/MySQL-Save-Session/">数据库中保存会话</a></h1>
+					<div class="article-attrs">
+						<span class="pull-left">
+							<i class="fa fa-fw fa-calendar"></i> 2017-08-01
+						</span>
+						<span><i class="fa fa-fw fa-tags"></i> 
+							
+								<a href="/2_tags/#php" title="php">php</a>
+							
+								<a href="/2_tags/#MySQL" title="MySQL">MySQL</a>
+							
+						</span>
+					</div>
+					<p><blockquote>
+  <p>在PHP中我们常常使用 SESSION 保存会话机制，SESSION通常会将会话数据保存到服务器文本文件中（通常在系统的临时目录，如UNIX里的/tmp目录），文件名匹配会话ID。除了这一种机制管理会话之外，PHP还提供另一种机制——在数据库中存储会话数据。</p>
+</blockquote>
+
+</p>
+				</div>
+			</div>
+			
+			<div class="panel">
+				<div class="panel-body">
+					<h1><a href="/web/2017/07/31/PHP-Array-Sort/">PHP多维数组排序</a></h1>
+					<div class="article-attrs">
+						<span class="pull-left">
+							<i class="fa fa-fw fa-calendar"></i> 2017-07-31
+						</span>
+						<span><i class="fa fa-fw fa-tags"></i> 
+							
+						</span>
+					</div>
+					<p><blockquote>
+  <p>多维数组在PHP中被用到，处理数据库数据以及其他数据整理等等。或许我们可以随便写一个函数进行相应的操作处理，但不一定就是最简单最高效的方法。看过了《深入理解PHP——高级技巧、面向对象与核心技术》第三版（原版为《PHP Advance and Object-Oriented Programming Visual QuickPro Guide》Third Edition）之后深受感触。希望记录下来以备使用。</p>
+</blockquote>
+
+</p>
+				</div>
+			</div>
+			
+			
+			
+			<!-- Pager -->
+			
+		</div>
+	</div>
+</div>
+
+	<div class="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 text-center">
+					<div class="social-link">
+						<span><a href="https://github.com/Domaker"><i class="fa fa-fw fa-github fa-lg"></i></a></span>
+						<span><a href=""><i class="fa fa-fw fa-wechat fa-lg"></i></a></span>
+						<span><a href="/feed.xml"><i class="fa fa-fw fa-rss fa-lg"></i></a></span>
+					</div>
+					<p>© 2018 Domaker ❖ Powered by Jekyll.</p>
+				</div>
+			</div>	
+		</div>
+	</div>
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			if($('.footer').offset().top <= 579){
+				$('.footer').addClass('at-bottom');
+			}else{
+				$('.footer').removeClass('at-bottom');
+			}
+			console.log($('.footer').offset().top)
+		});
+	</script>
+</body>
+</html>

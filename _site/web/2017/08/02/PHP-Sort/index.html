@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+
+	<title>PHP常用的四种排序_Domaker_blog</title>
+	<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/css/style.css">
+	
+</head>
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top">
+	  <div class="container">
+	    <!-- Brand and toggle get grouped for better mobile display -->
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="/">Domaker</a>
+	    </div>
+
+	    <!-- Collect the nav links, forms, and other content for toggling -->
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      	<ul class="nav navbar-nav navbar-right text-center">
+	        	<li>
+                    <a href="/">Home</a>
+                </li>
+                
+                
+                <li>
+                    <a href="/1_web/">Web</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/2_ba/">BA</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/3_read/">Read</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/4_tags/">Tags</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/5_about/">About</a>
+                </li>
+                
+                
+                
+                
+                
+                
+	      	</ul>
+	    </div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+	<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-md-12 col-lg-12">
+            <!-- Post Content -->
+            <article class="page">
+                    <h1>PHP常用的四种排序</h1>
+                    <div class="article-attrs text-left">
+                        <span>
+                            <i class="fa fa-fw fa-calendar"></i>
+                            2017-08-02
+                        </span>
+                        <span>
+                            <i class="fa fa-fw fa-tags"></i>
+                            
+                            <a href="/2_tags/#php" title="php">php</a>
+                            
+                        </span>
+                    </div>
+                    <h1 id="phpsort">phpsort</h1>
+<p>php常用排序算法整理</p>
+<blockquote>
+  <p>包括了冒泡排序、选择排序、插入排序、快速排序这四种基本排序</p>
+</blockquote>
+
+<blockquote>
+  <p><a href="https://github.com/HerbCollins/phpsort">程序源码</a></p>
+</blockquote>
+
+<h2 id="冒泡排序">冒泡排序</h2>
+
+<ul>
+  <li>原理</li>
+</ul>
+
+<p>冒泡排序是对一组数据相邻之间比较大小，比较之后要把谁放前谁放后就要看你是想升序排列还是降序排列了。整个过程是两组循环。
+比如一组数据 （ 6, 6, 3, 1, 8, 7, 2, 4 ），按升序排列
+第1次比较：	 <font color="red">6 , 6 </font>, 3 , 1 , 8 , 7 , 2 , 4
+第2次比较：	 6 , <font color="red">3 , 6</font> , 1 , 8 , 7 , 2 , 4
+第3次比较：	 6 , 3 , <font color="red">1 ,6</font>, 8 , 7 , 2 , 4
+第4次比较：	 6 , 3 , 1 ,<font color="red">6, 8 </font>, 7 , 2 , 4
+第5次比较：	 6 , 3 , 1 ,6, <font color="red"> 7 , 8 </font>, 2 , 4
+第6次比较：	 6 , 3 , 1 ,6, 7 , <font color="red">2 , 8 </font>, 4
+第7次比较：	 6 , 3 , 1 ,6, 7 , 2 ,<font color="red"> 4 , 8 </font>
+以上是第一轮比较，还要继续进行，接下来的比较和上面的比较过程一样，就不再累述。</p>
+
+<h2 id="选择排序">选择排序</h2>
+
+<ul>
+  <li>原理</li>
+</ul>
+
+<p>“Selection Sort”通常被翻译成“选择排序”，Selection在英文中还有一个“被选中者”的意思。选择排序就是把一组数据中的第一个当做整个数组（n个数据）中的最小值，然后拿这个最小值去和剩余的数据依次比较，去剩余数据中真正的最小值，如果找到了就将这两个数据进行位置替换，这样就将整个数组中的最小值放到了第一位，当然如果没有找到，那第一个数据真的是最小值，那就不用替换。然后重新从第二个数据开始，将第二个数据当做是剩余n-1个数据中最小的，同样的进行比较、替换等步骤，直到进行到最后一位（如果是倒序排序，同理）。这样你就明白我为什么要先说一下“Selection”还有一个“被选中者”的意思了。</p>
+
+<h2 id="插入排序">插入排序</h2>
+
+<ul>
+  <li>原理</li>
+</ul>
+
+<p>插入排序单从字面上是不好理解的，拿数组（ 6, 5, 3, 1, 8, 7, 2, 4 ）升序排序来举例，它其实是从第二位（5）开始为标记点，将第二位与它左边的第一个（6）进行比较，如果（6）比（5）大，这两个就进行交换，这样就变成了（ <font color="red">5 ，6 </font> , 3, 1, 8, 7, 2, 4 ）,然后左边第一个（5）再与左边第二个比较（没有就继续下一轮），下一轮中，以第三位（3）为标记点，将（6）与（3）进行比较，交换，（3）与（5）比较，交换，然后再接着进行下一轮…依次类推</p>
+
+<h2 id="快速排序">快速排序</h2>
+
+<ul>
+  <li>原理</li>
+</ul>
+
+<p>快排的过程就是拿数组中的第一个数作为切割点，遍历数组剩余的数据，依次与该切割点进行比较，比它小的另存一个数组中，比它大的也另存一个数组中，和它相等的同样放进另一个数组中，这样就用一个点切割出三个数组，分别是比它小的（后面称这个数组为左边数组）、比它大的（后面称这个数组为右边数组）还有和它相等的数组（后面称它为等同数组），然后将左边数组和比右边数组分别用这个方法递归切割，左边数组递归切割完成之后，将左边数组和等同数组合并（左边数组在前），然后再与右边数组递归切割好的进行合并，就是整个快排了。</p>
+
+                    <div class="text-right">
+                        <img src="http://static.wawmam.com/zhangmingliang.png" style="width:200px;">
+                    </div>
+                    <ul class="pager">
+                        
+                        <li class="previous">
+                            <a href="/web/2017/08/01/Sass-Install-Start/" data-toggle="tooltip" data-placement="top" title="SASS安装与入门"><i class="fa fa-fw fa-arrow-circle-left"></i> Previous Post</a>
+                        </li>
+                        
+                        
+                        <li class="next">
+                            <a href="/web/2017/10/14/PHP-DATE-FORMAT/" data-toggle="tooltip" data-placement="top" title="Mysql按周，月，日分组统计数据">Next Post <i class="fa fa-fw fa-arrow-circle-right"></i></a>
+                        </li>
+                        
+                    </ul>
+            </article>
+        </div>
+    </div>
+    
+</div>
+
+
+	<div class="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 text-center">
+					<div class="social-link">
+						<span><a href="https://github.com/Domaker"><i class="fa fa-fw fa-github fa-lg"></i></a></span>
+						<span><a href=""><i class="fa fa-fw fa-wechat fa-lg"></i></a></span>
+						<span><a href="/feed.xml"><i class="fa fa-fw fa-rss fa-lg"></i></a></span>
+					</div>
+					<p>© 2018 Domaker ❖ Powered by Jekyll.</p>
+				</div>
+			</div>	
+		</div>
+	</div>
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			if($('.footer').offset().top <= 579){
+				$('.footer').addClass('at-bottom');
+			}else{
+				$('.footer').removeClass('at-bottom');
+			}
+			console.log($('.footer').offset().top)
+		});
+	</script>
+</body>
+</html>

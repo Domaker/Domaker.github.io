@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+
+	<title>SASS安装与入门_Domaker_blog</title>
+	<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/css/style.css">
+	
+</head>
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top">
+	  <div class="container">
+	    <!-- Brand and toggle get grouped for better mobile display -->
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="/">Domaker</a>
+	    </div>
+
+	    <!-- Collect the nav links, forms, and other content for toggling -->
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      	<ul class="nav navbar-nav navbar-right text-center">
+	        	<li>
+                    <a href="/">Home</a>
+                </li>
+                
+                
+                <li>
+                    <a href="/1_web/">Web</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/2_ba/">BA</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/3_read/">Read</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/4_tags/">Tags</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/5_about/">About</a>
+                </li>
+                
+                
+                
+                
+                
+                
+	      	</ul>
+	    </div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+	<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-md-12 col-lg-12">
+            <!-- Post Content -->
+            <article class="page">
+                    <h1>SASS安装与入门</h1>
+                    <div class="article-attrs text-left">
+                        <span>
+                            <i class="fa fa-fw fa-calendar"></i>
+                            2017-08-01
+                        </span>
+                        <span>
+                            <i class="fa fa-fw fa-tags"></i>
+                            
+                            <a href="/2_tags/#sass" title="sass">sass</a>
+                            
+                            <a href="/2_tags/#css" title="css">css</a>
+                            
+                        </span>
+                    </div>
+                    <blockquote>
+  <p>Sass号称世界上最成熟、稳定和强大的CSS扩展语言，它扩展了CSS3，增加了规则、变量、混入、选择器、继承等等特性，它生成良好格式化的CSS3代码易于组织和维护。</p>
+</blockquote>
+
+<h2 id="sass">Sass？</h2>
+
+<blockquote>
+  <p>Sass(Syntactically Awesome StyleSheets)是一种CSS开发工具，提供了许多便利写法，大大节省了设计者的时间，使得CSS开发变得简单和可维护。</p>
+</blockquote>
+
+<h2 id="安装">安装</h2>
+
+<p>安装Sass之前需要安装Ruby，因为Sass是由Ruby语言写的（不会Ruby不影响使用）。安装Ruby就不说了（网上一搜教程一大堆），安装好Ruby之后就要打开cmd（windows操作系统），敲一下命令了：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gem install sass
+gem install compass
+</code></pre></div></div>
+
+<p>如果安装太慢，可以切换安装源，将自带的gem源改为国内的淘宝源</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gem source --remove https://rubygems.org/
+gem source -a https://ruby.taobao.org/
+gem source -l
+</code></pre></div></div>
+
+<h2 id="入门">入门</h2>
+<h3 id="编译">编译</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 将input.scss编译成output.css
+sass input.scss output.css
+
+// 监视单个 Sass 文件，每次修改并保存时自动编译
+sass --watch input.scss:output.css
+
+// 监视整个文件夹
+sass --watch app/sass:public/stylesheets
+</code></pre></div></div>
+<h3 id="编码格式">编码格式</h3>
+<p>Sass 首先检查 Unicode byte order mark，然后是 @charset 声明，最后是 Ruby string encoding，假如都没有检测到，默认使用 UTF-8 编码。
+与 CSS 相同，使用 @charset 可以声明特定的编码格式。在样式文件的起始位置（前面没有任何空白与注释）插入 @charset “encoding-name”， Sass 将会按照给出的编码格式编译文件。注意所使用的编码格式必须可转换为 Unicode 字符集。
+Sass 以 UTF-8 编码输出 CSS 文件，当且仅当编译后的文件中包含非 ASCII 字符时，才会在输出文件中添加 @charset 声明，而在压缩模式下 (compressed mode) 使用 UTF-8 byte order mark 代替 @charset 声明语句。</p>
+
+<h3 id="变量">变量</h3>
+<p>sass可以使用变量，便于维护与修改
+SassScript 最普遍的用法就是变量，变量以美元符号开头，赋值方法与 CSS 属性的写法一样：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$width: 5em;
+</code></pre></div></div>
+<p>直接使用就可以调用变量</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#main {
+  width: $width;
+}
+</code></pre></div></div>
+<p>案例如下：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//sass style
+//-----------------------------------
+$fontStack:    Helvetica, sans-serif;
+$primaryColor: #333;
+
+body {
+  font-family: $fontStack;
+  color: $primaryColor;
+}
+</code></pre></div></div>
+
+<p>编译之后</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//css style
+//-----------------------------------
+body {
+  font-family: Helvetica, sans-serif;
+  color: #333;
+}
+</code></pre></div></div>
+
+<h3 id="嵌套">嵌套</h3>
+<p>sass可以进行选择器嵌套。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//sass style
+//-----------------------------------
+nav {
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li { display: inline-block; }
+
+  a {
+    display: block;
+    padding: 6px 12px;
+    text-decoration: none;
+  }
+}
+</code></pre></div></div>
+
+<p>编译之后</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//css style
+//-----------------------------------
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav li {
+  display: inline-block;
+}
+
+nav a {
+  display: block;
+  padding: 6px 12px;
+  text-decoration: none;
+}
+</code></pre></div></div>
+
+<h3 id="导入">导入</h3>
+<p>sass导入其他sass文件之后编译，优于css的@import</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//sass style
+//-----------------------------------
+// _reset.scss
+
+html,
+body,
+ul,
+ol {
+   margin: 0;
+  padding: 0;
+}
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//sass style
+//-----------------------------------
+// base.scss 
+
+@import 'reset';
+
+body {
+  font-size: 100% Helvetica, sans-serif;
+  background-color: #efefef;
+}
+</code></pre></div></div>
+
+<p>编译之后</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//css style
+//-----------------------------------
+html, body, ul, ol {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #efefef;
+  font-size: 100% Helvetica, sans-serif;
+}
+</code></pre></div></div>
+<h3 id="mixin">mixin</h3>
+
+<p>sass中可用mixin定义一些代码片段，且可传参数，方便日后根据需求调用。从此处理css3的前缀兼容轻松便捷。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//sass style
+//-----------------------------------
+@mixin box-sizing ($sizing) {
+    -webkit-box-sizing:$sizing;     
+       -moz-box-sizing:$sizing;
+            box-sizing:$sizing;
+}
+.box-border{
+    border:1px solid #ccc;
+    @include box-sizing(border-box);
+}
+</code></pre></div></div>
+
+<p>编译之后</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//css style
+//-----------------------------------
+.box-border {
+  border: 1px solid #ccc;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+</code></pre></div></div>
+
+<h3 id="扩展继承">扩展/继承</h3>
+<p>sass可通过@extend来实现代码组合声明，使代码更加优越简洁。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//sass style
+//-----------------------------------
+.message {
+  border: 1px solid #ccc;
+  padding: 10px;
+  color: #333;
+}
+
+.success {
+  @extend .message;
+  border-color: green;
+}
+
+.error {
+  @extend .message;
+  border-color: red;
+}
+
+.warning {
+  @extend .message;
+  border-color: yellow;
+}
+</code></pre></div></div>
+
+<p>编译之后</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//css style
+//-----------------------------------
+.message, .success, .error, .warning {
+  border: 1px solid #cccccc;
+  padding: 10px;
+  color: #333;
+}
+
+.success {
+  border-color: green;
+}
+
+.error {
+  border-color: red;
+}
+
+.warning {
+  border-color: yellow;
+}
+</code></pre></div></div>
+
+<h3 id="运算">运算</h3>
+<p>sass可进行简单的加减乘除运算等</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//sass style
+//-----------------------------------
+.container { width: 100%; }
+
+article[role="main"] {
+  float: left;
+  width: 600px / 960px * 100%;
+}
+
+aside[role="complimentary"] {
+  float: right;
+  width: 300px / 960px * 100%;
+}
+</code></pre></div></div>
+
+<p>编译之后</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//css style
+//-----------------------------------
+.container {
+  width: 100%;
+}
+
+article[role="main"] {
+  float: left;
+  width: 62.5%;
+}
+
+aside[role="complimentary"] {
+  float: right;
+  width: 31.25%;
+}
+</code></pre></div></div>
+<h3 id="颜色">颜色</h3>
+<p>sass中集成了大量的颜色函数，让变换颜色更加简单。</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//sass style
+//-----------------------------------
+$linkColor: #08c;
+a {
+    text-decoration:none;
+    color:$linkColor;
+    &amp;:hover{
+      color:darken($linkColor,10%);
+    }
+}
+</code></pre></div></div>
+
+<p>编译之后</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//css style
+//-----------------------------------
+a {
+  text-decoration: none;
+  color: #0088cc;
+}
+a:hover {
+  color: #006699;
+}
+</code></pre></div></div>
+
+
+                    <div class="text-right">
+                        <img src="http://static.wawmam.com/zhangmingliang.png" style="width:200px;">
+                    </div>
+                    <ul class="pager">
+                        
+                        <li class="previous">
+                            <a href="/web/2017/08/01/MySQL-Save-Session/" data-toggle="tooltip" data-placement="top" title="数据库中保存会话"><i class="fa fa-fw fa-arrow-circle-left"></i> Previous Post</a>
+                        </li>
+                        
+                        
+                        <li class="next">
+                            <a href="/web/2017/08/02/PHP-Sort/" data-toggle="tooltip" data-placement="top" title="PHP常用的四种排序">Next Post <i class="fa fa-fw fa-arrow-circle-right"></i></a>
+                        </li>
+                        
+                    </ul>
+            </article>
+        </div>
+    </div>
+    
+</div>
+
+
+	<div class="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 text-center">
+					<div class="social-link">
+						<span><a href="https://github.com/Domaker"><i class="fa fa-fw fa-github fa-lg"></i></a></span>
+						<span><a href=""><i class="fa fa-fw fa-wechat fa-lg"></i></a></span>
+						<span><a href="/feed.xml"><i class="fa fa-fw fa-rss fa-lg"></i></a></span>
+					</div>
+					<p>© 2018 Domaker ❖ Powered by Jekyll.</p>
+				</div>
+			</div>	
+		</div>
+	</div>
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			if($('.footer').offset().top <= 579){
+				$('.footer').addClass('at-bottom');
+			}else{
+				$('.footer').removeClass('at-bottom');
+			}
+			console.log($('.footer').offset().top)
+		});
+	</script>
+</body>
+</html>

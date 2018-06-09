@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+
+	<title>关于redis在laravel中设置过期时间的使用纠正_Domaker_blog</title>
+	<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/css/style.css">
+	
+</head>
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top">
+	  <div class="container">
+	    <!-- Brand and toggle get grouped for better mobile display -->
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="/">Domaker</a>
+	    </div>
+
+	    <!-- Collect the nav links, forms, and other content for toggling -->
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      	<ul class="nav navbar-nav navbar-right text-center">
+	        	<li>
+                    <a href="/">Home</a>
+                </li>
+                
+                
+                <li>
+                    <a href="/1_web/">Web</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/2_ba/">BA</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/3_read/">Read</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/4_tags/">Tags</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/5_about/">About</a>
+                </li>
+                
+                
+                
+                
+                
+                
+	      	</ul>
+	    </div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+	<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-md-12 col-lg-12">
+            <!-- Post Content -->
+            <article class="page">
+                    <h1>关于redis在laravel中设置过期时间的使用纠正</h1>
+                    <div class="article-attrs text-left">
+                        <span>
+                            <i class="fa fa-fw fa-calendar"></i>
+                            2018-06-08
+                        </span>
+                        <span>
+                            <i class="fa fa-fw fa-tags"></i>
+                            
+                            <a href="/2_tags/#php" title="php">php</a>
+                            
+                            <a href="/2_tags/#Redis" title="Redis">Redis</a>
+                            
+                        </span>
+                    </div>
+                    <blockquote>
+  <p>之前在Laravel中初次使用Redis的时候，不知道怎么设置过期时间，因为有很多地方会希望Redis存储一段时间之后自动被清除，所以在网上搜了一下方法，很多地方说的不太正确，以至于走了一次坑，在此记录一下。</p>
+</blockquote>
+
+<p>（String）过期时间正确设置方法：</p>
+
+<p><code class="highlighter-rouge">Redis::setex( $key , $expired_at , $value );</code></p>
+
+<p>$expired_at 就是过期时间，单位秒</p>
+
+                    <div class="text-right">
+                        <img src="http://static.wawmam.com/zhangmingliang.png" style="width:200px;">
+                    </div>
+                    <ul class="pager">
+                        
+                        <li class="previous">
+                            <a href="/web/2018/02/11/PHP-deal-image/" data-toggle="tooltip" data-placement="top" title="文本中base64位图片处理方式"><i class="fa fa-fw fa-arrow-circle-left"></i> Previous Post</a>
+                        </li>
+                        
+                        
+                    </ul>
+            </article>
+        </div>
+    </div>
+    
+</div>
+
+
+	<div class="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 text-center">
+					<div class="social-link">
+						<span><a href="https://github.com/Domaker"><i class="fa fa-fw fa-github fa-lg"></i></a></span>
+						<span><a href=""><i class="fa fa-fw fa-wechat fa-lg"></i></a></span>
+						<span><a href="/feed.xml"><i class="fa fa-fw fa-rss fa-lg"></i></a></span>
+					</div>
+					<p>© 2018 Domaker ❖ Powered by Jekyll.</p>
+				</div>
+			</div>	
+		</div>
+	</div>
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			if($('.footer').offset().top <= 579){
+				$('.footer').addClass('at-bottom');
+			}else{
+				$('.footer').removeClass('at-bottom');
+			}
+			console.log($('.footer').offset().top)
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+
+	<title>文本中base64位图片处理方式_Domaker_blog</title>
+	<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/css/style.css">
+	
+</head>
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top">
+	  <div class="container">
+	    <!-- Brand and toggle get grouped for better mobile display -->
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="/">Domaker</a>
+	    </div>
+
+	    <!-- Collect the nav links, forms, and other content for toggling -->
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      	<ul class="nav navbar-nav navbar-right text-center">
+	        	<li>
+                    <a href="/">Home</a>
+                </li>
+                
+                
+                <li>
+                    <a href="/1_web/">Web</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/2_ba/">BA</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/3_read/">Read</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/4_tags/">Tags</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/5_about/">About</a>
+                </li>
+                
+                
+                
+                
+                
+                
+	      	</ul>
+	    </div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+	<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-md-12 col-lg-12">
+            <!-- Post Content -->
+            <article class="page">
+                    <h1>文本中base64位图片处理方式</h1>
+                    <div class="article-attrs text-left">
+                        <span>
+                            <i class="fa fa-fw fa-calendar"></i>
+                            2018-02-11
+                        </span>
+                        <span>
+                            <i class="fa fa-fw fa-tags"></i>
+                            
+                            <a href="/2_tags/#php" title="php">php</a>
+                            
+                        </span>
+                    </div>
+                    <blockquote>
+  <p>使用编辑器撰写文章时很多情况下都需要插入的图片，但是有一部分编辑器会将图片转为base64位编码形式保存到数据库，这种存储会造成数据库存储量庞大，所以需要在存储的时候将base64位编码图片转存到本地，并将本地图片地址替换base64位编码图片。</p>
+</blockquote>
+
+<ol>
+  <li>正则表达式匹配全部base64图片</li>
+  <li>foreach循环：
+    <ul>
+      <li>将base64图片保存到本地并获取地址</li>
+      <li>将字符串中的原base64位替换成新的地址</li>
+    </ul>
+  </li>
+</ol>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/&lt;\s*img\s+[^&gt;]*?src\s*=\s*(\'|\")(.*?)\\1[^&gt;]*?\/?\s*&gt;/i
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>preg_match_all('/&lt;\s*img\s+[^&gt;]*?src\s*=\s*(\'|\")(.*?)\\1[^&gt;]*?\/?\s*&gt;/i',htmlspecialchars_decode($str),$match);
+
+if(isset($match[2])){
+	$base64s = $match[2];
+	foreach ($base64s as $base64) {
+		// Todo upload
+		// ...
+		
+		// Todo replace
+		$str = str_replace($base64, $newStr, $str);
+
+	}
+}
+</code></pre></div></div>
+
+                    <div class="text-right">
+                        <img src="http://static.wawmam.com/zhangmingliang.png" style="width:200px;">
+                    </div>
+                    <ul class="pager">
+                        
+                        <li class="previous">
+                            <a href="/web/2017/10/14/ElasticSearch/" data-toggle="tooltip" data-placement="top" title="ElasticSearch入门"><i class="fa fa-fw fa-arrow-circle-left"></i> Previous Post</a>
+                        </li>
+                        
+                        
+                        <li class="next">
+                            <a href="/web/2018/06/08/The-use-of-redis-to-set-expired-time-in-laravel/" data-toggle="tooltip" data-placement="top" title="关于redis在laravel中设置过期时间的使用纠正">Next Post <i class="fa fa-fw fa-arrow-circle-right"></i></a>
+                        </li>
+                        
+                    </ul>
+            </article>
+        </div>
+    </div>
+    
+</div>
+
+
+	<div class="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 text-center">
+					<div class="social-link">
+						<span><a href="https://github.com/Domaker"><i class="fa fa-fw fa-github fa-lg"></i></a></span>
+						<span><a href=""><i class="fa fa-fw fa-wechat fa-lg"></i></a></span>
+						<span><a href="/feed.xml"><i class="fa fa-fw fa-rss fa-lg"></i></a></span>
+					</div>
+					<p>© 2018 Domaker ❖ Powered by Jekyll.</p>
+				</div>
+			</div>	
+		</div>
+	</div>
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			if($('.footer').offset().top <= 579){
+				$('.footer').addClass('at-bottom');
+			}else{
+				$('.footer').removeClass('at-bottom');
+			}
+			console.log($('.footer').offset().top)
+		});
+	</script>
+</body>
+</html>

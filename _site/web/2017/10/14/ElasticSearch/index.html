@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+
+	<title>ElasticSearch入门_Domaker_blog</title>
+	<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/css/style.css">
+	
+</head>
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top">
+	  <div class="container">
+	    <!-- Brand and toggle get grouped for better mobile display -->
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="/">Domaker</a>
+	    </div>
+
+	    <!-- Collect the nav links, forms, and other content for toggling -->
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      	<ul class="nav navbar-nav navbar-right text-center">
+	        	<li>
+                    <a href="/">Home</a>
+                </li>
+                
+                
+                <li>
+                    <a href="/1_web/">Web</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/2_ba/">BA</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/3_read/">Read</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/4_tags/">Tags</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/5_about/">About</a>
+                </li>
+                
+                
+                
+                
+                
+                
+	      	</ul>
+	    </div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+	<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-md-12 col-lg-12">
+            <!-- Post Content -->
+            <article class="page">
+                    <h1>ElasticSearch入门</h1>
+                    <div class="article-attrs text-left">
+                        <span>
+                            <i class="fa fa-fw fa-calendar"></i>
+                            2017-10-14
+                        </span>
+                        <span>
+                            <i class="fa fa-fw fa-tags"></i>
+                            
+                            <a href="/2_tags/#web" title="web">web</a>
+                            
+                        </span>
+                    </div>
+                    <blockquote>
+  <p>我们建立一个网站或应用程序，并要添加搜索功能，但是想要完成搜索工作的创建是非常困难的。我们希望搜索解决方案要运行速度快，我们希望能有一个零配置和一个完全免费的搜索模式，我们希望能够简单地使用JSON通过HTTP来索引数据，我们希望我们的搜索服务器始终可用，我们希望能够从一台开始并扩展到数百台，我们要实时搜索，我们要简单的多租户，我们希望建立一个云的解决方案。因此我们利用Elasticsearch来解决所有这些问题及可能出现的更多其它问题。</p>
+</blockquote>
+
+<h1 id="基本概念">基本概念</h1>
+<h2 id="node--cluster">Node &amp; Cluster</h2>
+<blockquote>
+  <p>Elastic 本质上是一个分布式数据库，允许多台服务器协同工作，每台服务器可以运行多个Elastic实例。</p>
+</blockquote>
+
+<blockquote>
+  <p>单个Elastic实例称为一个Node（节点）。</p>
+</blockquote>
+
+<blockquote>
+  <p>一组Node（节点）构成Cluster（集群）。</p>
+</blockquote>
+
+<h2 id="index">Index</h2>
+
+<blockquote>
+  <p>Elastic会索引所有字段，经过处理后写入一个反向索引（Inverted Index）。</p>
+</blockquote>
+
+<h2 id="query-dsl">Query DSL</h2>
+<blockquote>
+  <p>分类：叶查询子句、复合查询子句</p>
+</blockquote>
+
+<h3 id="匹配查询">匹配查询</h3>
+<h4 id="match">match</h4>
+<blockquote>
+  <p>将文本或短语与一个或多个字段的值匹配</p>
+</blockquote>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+   "query":{
+      "match" : {
+         "city":"pune"
+      }
+   }
+}
+</code></pre></div></div>
+
+<h4 id="multi_match">multi_match</h4>
+<blockquote>
+  <p>将文本或短语与多个字段匹配</p>
+</blockquote>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+   "query":{
+      "multi_match" : {
+         "query": "hyderabad",
+         "fields": [ "city", "state" ]
+      }
+   }
+}
+</code></pre></div></div>
+
+<h3 id="查询字符串查询">查询字符串查询</h3>
+<blockquote>
+  <p>此查询使用查询解析器和<code class="highlighter-rouge">query_string</code>关键字</p>
+</blockquote>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+   "query":{
+      "query_string":{
+         "query":"good faculty"
+      }
+   }
+}
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+   "took":16, "timed_out":false, "_shards":{"total":10, "successful":10, "failed":0}, 
+   "hits":{
+      "total":1, "max_score":0.09492774, "hits":[{
+         "_index":"schools", "_type":"school", "_id":"2", "_score":0.09492774, 
+         "_source":{
+            "name":"Saint Paul School", "description":"ICSE Affiliation",
+            "street":"Dawarka", "city":"Delhi", "state":"Delhi",
+            "zip":"110075", "location":[28.5733056, 77.0122136],
+            "fees":5000, "tags":["Good Faculty", "Great Sports"],
+            "rating":"4.5" 
+         }
+      }]
+   }
+}
+</code></pre></div></div>
+
+<h3 id="期限等级查询">期限等级查询</h3>
+<blockquote>
+  <p>这些查询主要处理结构化数据，如数字、日期和枚举</p>
+</blockquote>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+   "query":{
+      "term":{"zip":"176115"}
+   }
+}
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+   "took":1, "timed_out":false, "_shards":{"total":10, "successful":10, "failed":0},
+   "hits":{
+      "total":1, "max_score":0.30685282, "hits":[{
+         "_index":"schools", "_type":"school", "_id":"1", "_score":0.30685282,
+         "_source":{
+            "name":"Central School", "description":"CBSE Affiliation",
+            "street":"Nagan", "city":"paprola", "state":"HP", "zip":"176115",
+            "location":[31.8955385, 76.8380405], "fees":2200, 
+            "tags":["Senior Secondary", "beautiful campus"], "rating":"3.3"
+         }
+      }]
+   }
+}
+</code></pre></div></div>
+
+<h3 id="范围查询">范围查询</h3>
+<blockquote>
+  <p>此查询用于查找值的范围之间的值的对象，需要</p>
+  <ul>
+    <li>gte - 大于等于</li>
+    <li>gt  - 大于</li>
+    <li>lte - 小于等于</li>
+    <li>lt  - 小于</li>
+  </ul>
+</blockquote>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+   "query":{
+      "range":{
+         "rating":{
+            "gte":3.5
+         }
+      }
+   }
+}
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+   "took":31, "timed_out":false, "_shards":{"total":10, "successful":10, "failed":0},
+   "hits":{
+      "total":3, "max_score":1.0, "hits":[
+         {
+            "_index":"schools", "_type":"school", "_id":"2", "_score":1.0,
+            "_source":{
+               "name":"Saint Paul School", "description":"ICSE Affiliation",
+               "street":"Dawarka", "city":"Delhi", "state":"Delhi", 
+               "zip":"110075", "location":[28.5733056, 77.0122136], "fees":5000, 
+               "tags":["Good Faculty", "Great Sports"], "rating":"4.5"
+            }
+         }, 
+
+         {
+            "_index":"schools_gov", "_type":"school", "_id":"2", "_score":1.0, 
+            "_source":{
+               "name":"Government School", "description":"State Board Affiliation",
+               "street":"Hinjewadi", "city":"Pune", "state":"MH", "zip":"411057",
+               "location":[18.599752, 73.6821995] "fees":500, 
+               "tags":["Great Sports"], "rating":"4"
+            }
+         },
+
+         {
+            "_index":"schools", "_type":"school", "_id":"3", "_score":1.0,
+            "_source":{
+               "name":"Crescent School", "description":"State Board Affiliation",
+               "street":"Tonk Road", "city":"Jaipur", "state":"RJ", "zip":"176114", 
+               "location":[26.8535922, 75.7923988], "fees":2500,
+               "tags":["Well equipped labs"], "rating":"4.5"
+            }
+         }
+      ]
+   }
+}
+</code></pre></div></div>
+<blockquote>
+  <p>其他类型的期限级查询</p>
+  <ul>
+    <li>存在的查询 - 如果某一个字段有非空值</li>
+    <li>缺失的查询 - 与存在的查询相反</li>
+  </ul>
+</blockquote>
+
+<h3 id="复合查询">复合查询</h3>
+<blockquote>
+  <p>这些查询是通过使用如和，或，非和或等，用于不同索引或具有函数调用等的布尔运算符彼此合并的不同查询的集合。</p>
+</blockquote>
+
+
+                    <div class="text-right">
+                        <img src="http://static.wawmam.com/zhangmingliang.png" style="width:200px;">
+                    </div>
+                    <ul class="pager">
+                        
+                        <li class="previous">
+                            <a href="/web/2017/10/14/PHP-DATE-FORMAT/" data-toggle="tooltip" data-placement="top" title="Mysql按周，月，日分组统计数据"><i class="fa fa-fw fa-arrow-circle-left"></i> Previous Post</a>
+                        </li>
+                        
+                        
+                        <li class="next">
+                            <a href="/web/2018/02/11/PHP-deal-image/" data-toggle="tooltip" data-placement="top" title="文本中base64位图片处理方式">Next Post <i class="fa fa-fw fa-arrow-circle-right"></i></a>
+                        </li>
+                        
+                    </ul>
+            </article>
+        </div>
+    </div>
+    
+</div>
+
+
+	<div class="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 text-center">
+					<div class="social-link">
+						<span><a href="https://github.com/Domaker"><i class="fa fa-fw fa-github fa-lg"></i></a></span>
+						<span><a href=""><i class="fa fa-fw fa-wechat fa-lg"></i></a></span>
+						<span><a href="/feed.xml"><i class="fa fa-fw fa-rss fa-lg"></i></a></span>
+					</div>
+					<p>© 2018 Domaker ❖ Powered by Jekyll.</p>
+				</div>
+			</div>	
+		</div>
+	</div>
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			if($('.footer').offset().top <= 579){
+				$('.footer').addClass('at-bottom');
+			}else{
+				$('.footer').removeClass('at-bottom');
+			}
+			console.log($('.footer').offset().top)
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+
+	<title>数据库中保存会话_Domaker_blog</title>
+	<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/css/style.css">
+	
+</head>
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top">
+	  <div class="container">
+	    <!-- Brand and toggle get grouped for better mobile display -->
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="/">Domaker</a>
+	    </div>
+
+	    <!-- Collect the nav links, forms, and other content for toggling -->
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      	<ul class="nav navbar-nav navbar-right text-center">
+	        	<li>
+                    <a href="/">Home</a>
+                </li>
+                
+                
+                <li>
+                    <a href="/1_web/">Web</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/2_ba/">BA</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/3_read/">Read</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/4_tags/">Tags</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/5_about/">About</a>
+                </li>
+                
+                
+                
+                
+                
+                
+	      	</ul>
+	    </div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+	<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-md-12 col-lg-12">
+            <!-- Post Content -->
+            <article class="page">
+                    <h1>数据库中保存会话</h1>
+                    <div class="article-attrs text-left">
+                        <span>
+                            <i class="fa fa-fw fa-calendar"></i>
+                            2017-08-01
+                        </span>
+                        <span>
+                            <i class="fa fa-fw fa-tags"></i>
+                            
+                            <a href="/2_tags/#php" title="php">php</a>
+                            
+                            <a href="/2_tags/#MySQL" title="MySQL">MySQL</a>
+                            
+                        </span>
+                    </div>
+                    <blockquote>
+  <p>在PHP中我们常常使用 SESSION 保存会话机制，SESSION通常会将会话数据保存到服务器文本文件中（通常在系统的临时目录，如UNIX里的/tmp目录），文件名匹配会话ID。除了这一种机制管理会话之外，PHP还提供另一种机制——在数据库中存储会话数据。</p>
+</blockquote>
+
+<p>使用数据库存储会话机制原因有下：</p>
+
+<ul>
+  <li>提高系统安全性：很多个程序同时需要访问临时目录中的会话信息，难免会引发数据安全问题；</li>
+  <li>可以更方便的搜索Web站点更多的会话信息；</li>
+  <li>多服务器时可以更方便的访问会话信息：同一个用户可以在一次会话中对不同服务器的多个页面发起请求；</li>
+</ul>
+
+<h2 id="具体操作">具体操作</h2>
+<h3 id="1建立会话表">1、建立会话表</h3>
+<p>这个表可以在某个已有的数据库中创建，也可以在单独的数据库中创建，能够连接查询到就行。
+会话表至少需要三个字段，正常生产环境下还要必须一个用户ID字段（因情况而定），如下：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>字段类型</th>
+      <th>保存的数据</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>CHAR(32)</td>
+      <td>会话ID</td>
+    </tr>
+    <tr>
+      <td>TEXT</td>
+      <td>会话数据</td>
+    </tr>
+    <tr>
+      <td>TIMESTAMP</td>
+      <td>会话数据最后一次访问时间</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CREATE TABLE sessions (
+    id CHAR(32) NOT NULL,
+    data TEXT,
+    last_accessed TIMESTAMP NOT NULL,
+    PRIMARY KEY (id)
+);
+</code></pre></div></div>
+<h3 id="2定义会话函数">2、定义会话函数</h3>
+<p>这里将用到session_set_save_handler()函数来让PHP使用我们自定义的与数据库交互的函数。
+session_set_save_handler()函数需要6个参数，如下：</p>
+
+<p>次序 | 函数被调用的时机
+—|—
+1 | 启动会话
+2 | 关闭会话
+3 | 读取会话数据
+4 | 写入会话数据
+5 | 销毁会话数据
+6 | 消除旧数据
+所以我们需要6个相应的函数，示例代码如下：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$sdbc = NULL;  // 将用来存储数据库连接
+/**
+* 打开会话
+* @return true;
+*
+*/
+function open_session(){
+    global $sdbc;
+    // 主机、数据库账号、数据库密码、sessions表所在数据库名称
+    $sdbc = mysqli_connect('localhost','root','password','test');
+    return true;
+}
+
+/**
+* 关闭会话
+*/
+function close_session(){
+    global $sdbc;
+    return mysqli_close($sdbc);
+}
+
+
+/**
+* 读取session函数
+* @param $sid 会话ID
+* @return $data | ''
+*/
+function read_session($sid){
+    global $sdbc;
+    $q = sprintf('SELECT data FROM sessions WHERE id = "%s"' , mysqli_real_escape_string($sdbc , $sid));
+    $r = mysqli_query($sdbc , $q);
+    if(mysqli_num_rows($r) == 1){
+        list($data) = mysqli_fetch_array($r ,MYSQLI_NUM);
+        return $data;
+    }else{
+        return '';
+    }
+}
+
+/**
+* 写入session函数
+* @param $sid 会话ID
+* @param $data 会话数据
+* @return true;
+*/
+function write_session( $sid , $data ){
+    global $sdbc;
+    $q = sprintf('REPLACE INTO sessions (id , data) VALUES ("%s" ,"%s")' , mysqli_real_escape_string($sid , $data));
+    $r = mysqli_query($sdbc , $q);
+    
+    return true;
+}
+
+/**
+* 销毁session函数
+* @param $sid 会话ID
+* @return true
+*/
+function destroy_session($sid){
+    global $sdbc;
+    $q = sprintf('DELETE FROM sessions WHERE id = "%s"',mysqli_real_escape_string($sdbc , $sid));
+    
+    $r = mysqli_query($sdbc , $q);
+    
+    // clear session
+    $_SESSION = array();
+    
+    return ture;
+}
+
+/**
+* 消除旧数据
+* @param $expire
+* @return ture
+*/
+function clean_session($expire){
+    global $sdbc;
+    
+    $q = sprintf('DELETC FROM sessions WHERE DATE_ADD(INTERVAL "%d" SECOND) &lt; NEW()',(int)$expire);
+    
+    $r = mysqli_query($sdbc , $q);
+    return true;
+}
+
+/*************************/
+/***** END FUNCTIONS *****/
+/*************************/
+
+session_set_save_handler('open_session','close_session','read_session','write_session','destroy_session','clean_session');
+
+session_start();
+
+</code></pre></div></div>
+<p><a href="http://www.w3school.com.cn/php/func_mysql_real_escape_string.asp">mysql_real_escape_string()</a> 函数转义 SQL 语句中使用的字符串中的特殊字符。可使用本函数来预防数据库攻击。</p>
+
+
+                    <div class="text-right">
+                        <img src="http://static.wawmam.com/zhangmingliang.png" style="width:200px;">
+                    </div>
+                    <ul class="pager">
+                        
+                        <li class="previous">
+                            <a href="/web/2017/07/31/PHP-Array-Sort/" data-toggle="tooltip" data-placement="top" title="PHP多维数组排序"><i class="fa fa-fw fa-arrow-circle-left"></i> Previous Post</a>
+                        </li>
+                        
+                        
+                        <li class="next">
+                            <a href="/web/2017/08/01/Sass-Install-Start/" data-toggle="tooltip" data-placement="top" title="SASS安装与入门">Next Post <i class="fa fa-fw fa-arrow-circle-right"></i></a>
+                        </li>
+                        
+                    </ul>
+            </article>
+        </div>
+    </div>
+    
+</div>
+
+
+	<div class="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 text-center">
+					<div class="social-link">
+						<span><a href="https://github.com/Domaker"><i class="fa fa-fw fa-github fa-lg"></i></a></span>
+						<span><a href=""><i class="fa fa-fw fa-wechat fa-lg"></i></a></span>
+						<span><a href="/feed.xml"><i class="fa fa-fw fa-rss fa-lg"></i></a></span>
+					</div>
+					<p>© 2018 Domaker ❖ Powered by Jekyll.</p>
+				</div>
+			</div>	
+		</div>
+	</div>
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			if($('.footer').offset().top <= 579){
+				$('.footer').addClass('at-bottom');
+			}else{
+				$('.footer').removeClass('at-bottom');
+			}
+			console.log($('.footer').offset().top)
+		});
+	</script>
+</body>
+</html>

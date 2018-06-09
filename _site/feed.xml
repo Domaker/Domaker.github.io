@@ -1,0 +1,979 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Domaker</title>
+    <description>Domaker|张明亮</description>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Sat, 09 Jun 2018 17:39:35 +0800</pubDate>
+    <lastBuildDate>Sat, 09 Jun 2018 17:39:35 +0800</lastBuildDate>
+    <generator>Jekyll v3.8.3</generator>
+    
+      <item>
+        <title>关于redis在laravel中设置过期时间的使用纠正</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;之前在Laravel中初次使用Redis的时候，不知道怎么设置过期时间，因为有很多地方会希望Redis存储一段时间之后自动被清除，所以在网上搜了一下方法，很多地方说的不太正确，以至于走了一次坑，在此记录一下。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;（String）过期时间正确设置方法：&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Redis::setex( $key , $expired_at , $value );&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;$expired_at 就是过期时间，单位秒&lt;/p&gt;
+</description>
+        <pubDate>Fri, 08 Jun 2018 18:57:00 +0800</pubDate>
+        <link>http://localhost:4000/web/2018/06/08/The-use-of-redis-to-set-expired-time-in-laravel/</link>
+        <guid isPermaLink="true">http://localhost:4000/web/2018/06/08/The-use-of-redis-to-set-expired-time-in-laravel/</guid>
+        
+        <category>php</category>
+        
+        <category>Redis</category>
+        
+        
+        <category>web</category>
+        
+      </item>
+    
+      <item>
+        <title>文本中base64位图片处理方式</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;使用编辑器撰写文章时很多情况下都需要插入的图片，但是有一部分编辑器会将图片转为base64位编码形式保存到数据库，这种存储会造成数据库存储量庞大，所以需要在存储的时候将base64位编码图片转存到本地，并将本地图片地址替换base64位编码图片。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;正则表达式匹配全部base64图片&lt;/li&gt;
+  &lt;li&gt;foreach循环：
+    &lt;ul&gt;
+      &lt;li&gt;将base64图片保存到本地并获取地址&lt;/li&gt;
+      &lt;li&gt;将字符串中的原base64位替换成新的地址&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/&amp;lt;\s*img\s+[^&amp;gt;]*?src\s*=\s*(\'|\&quot;)(.*?)\\1[^&amp;gt;]*?\/?\s*&amp;gt;/i
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;preg_match_all('/&amp;lt;\s*img\s+[^&amp;gt;]*?src\s*=\s*(\'|\&quot;)(.*?)\\1[^&amp;gt;]*?\/?\s*&amp;gt;/i',htmlspecialchars_decode($str),$match);
+
+if(isset($match[2])){
+	$base64s = $match[2];
+	foreach ($base64s as $base64) {
+		// Todo upload
+		// ...
+		
+		// Todo replace
+		$str = str_replace($base64, $newStr, $str);
+
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Sun, 11 Feb 2018 20:46:35 +0800</pubDate>
+        <link>http://localhost:4000/web/2018/02/11/PHP-deal-image/</link>
+        <guid isPermaLink="true">http://localhost:4000/web/2018/02/11/PHP-deal-image/</guid>
+        
+        <category>php</category>
+        
+        
+        <category>web</category>
+        
+      </item>
+    
+      <item>
+        <title>ElasticSearch入门</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;我们建立一个网站或应用程序，并要添加搜索功能，但是想要完成搜索工作的创建是非常困难的。我们希望搜索解决方案要运行速度快，我们希望能有一个零配置和一个完全免费的搜索模式，我们希望能够简单地使用JSON通过HTTP来索引数据，我们希望我们的搜索服务器始终可用，我们希望能够从一台开始并扩展到数百台，我们要实时搜索，我们要简单的多租户，我们希望建立一个云的解决方案。因此我们利用Elasticsearch来解决所有这些问题及可能出现的更多其它问题。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;基本概念&quot;&gt;基本概念&lt;/h1&gt;
+&lt;h2 id=&quot;node--cluster&quot;&gt;Node &amp;amp; Cluster&lt;/h2&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;Elastic 本质上是一个分布式数据库，允许多台服务器协同工作，每台服务器可以运行多个Elastic实例。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;单个Elastic实例称为一个Node（节点）。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;一组Node（节点）构成Cluster（集群）。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;index&quot;&gt;Index&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Elastic会索引所有字段，经过处理后写入一个反向索引（Inverted Index）。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;query-dsl&quot;&gt;Query DSL&lt;/h2&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;分类：叶查询子句、复合查询子句&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;匹配查询&quot;&gt;匹配查询&lt;/h3&gt;
+&lt;h4 id=&quot;match&quot;&gt;match&lt;/h4&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;将文本或短语与一个或多个字段的值匹配&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{
+   &quot;query&quot;:{
+      &quot;match&quot; : {
+         &quot;city&quot;:&quot;pune&quot;
+      }
+   }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;multi_match&quot;&gt;multi_match&lt;/h4&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;将文本或短语与多个字段匹配&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{
+   &quot;query&quot;:{
+      &quot;multi_match&quot; : {
+         &quot;query&quot;: &quot;hyderabad&quot;,
+         &quot;fields&quot;: [ &quot;city&quot;, &quot;state&quot; ]
+      }
+   }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;查询字符串查询&quot;&gt;查询字符串查询&lt;/h3&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;此查询使用查询解析器和&lt;code class=&quot;highlighter-rouge&quot;&gt;query_string&lt;/code&gt;关键字&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{
+   &quot;query&quot;:{
+      &quot;query_string&quot;:{
+         &quot;query&quot;:&quot;good faculty&quot;
+      }
+   }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{
+   &quot;took&quot;:16, &quot;timed_out&quot;:false, &quot;_shards&quot;:{&quot;total&quot;:10, &quot;successful&quot;:10, &quot;failed&quot;:0}, 
+   &quot;hits&quot;:{
+      &quot;total&quot;:1, &quot;max_score&quot;:0.09492774, &quot;hits&quot;:[{
+         &quot;_index&quot;:&quot;schools&quot;, &quot;_type&quot;:&quot;school&quot;, &quot;_id&quot;:&quot;2&quot;, &quot;_score&quot;:0.09492774, 
+         &quot;_source&quot;:{
+            &quot;name&quot;:&quot;Saint Paul School&quot;, &quot;description&quot;:&quot;ICSE Affiliation&quot;,
+            &quot;street&quot;:&quot;Dawarka&quot;, &quot;city&quot;:&quot;Delhi&quot;, &quot;state&quot;:&quot;Delhi&quot;,
+            &quot;zip&quot;:&quot;110075&quot;, &quot;location&quot;:[28.5733056, 77.0122136],
+            &quot;fees&quot;:5000, &quot;tags&quot;:[&quot;Good Faculty&quot;, &quot;Great Sports&quot;],
+            &quot;rating&quot;:&quot;4.5&quot; 
+         }
+      }]
+   }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;期限等级查询&quot;&gt;期限等级查询&lt;/h3&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;这些查询主要处理结构化数据，如数字、日期和枚举&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{
+   &quot;query&quot;:{
+      &quot;term&quot;:{&quot;zip&quot;:&quot;176115&quot;}
+   }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{
+   &quot;took&quot;:1, &quot;timed_out&quot;:false, &quot;_shards&quot;:{&quot;total&quot;:10, &quot;successful&quot;:10, &quot;failed&quot;:0},
+   &quot;hits&quot;:{
+      &quot;total&quot;:1, &quot;max_score&quot;:0.30685282, &quot;hits&quot;:[{
+         &quot;_index&quot;:&quot;schools&quot;, &quot;_type&quot;:&quot;school&quot;, &quot;_id&quot;:&quot;1&quot;, &quot;_score&quot;:0.30685282,
+         &quot;_source&quot;:{
+            &quot;name&quot;:&quot;Central School&quot;, &quot;description&quot;:&quot;CBSE Affiliation&quot;,
+            &quot;street&quot;:&quot;Nagan&quot;, &quot;city&quot;:&quot;paprola&quot;, &quot;state&quot;:&quot;HP&quot;, &quot;zip&quot;:&quot;176115&quot;,
+            &quot;location&quot;:[31.8955385, 76.8380405], &quot;fees&quot;:2200, 
+            &quot;tags&quot;:[&quot;Senior Secondary&quot;, &quot;beautiful campus&quot;], &quot;rating&quot;:&quot;3.3&quot;
+         }
+      }]
+   }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;范围查询&quot;&gt;范围查询&lt;/h3&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;此查询用于查找值的范围之间的值的对象，需要&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;gte - 大于等于&lt;/li&gt;
+    &lt;li&gt;gt  - 大于&lt;/li&gt;
+    &lt;li&gt;lte - 小于等于&lt;/li&gt;
+    &lt;li&gt;lt  - 小于&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{
+   &quot;query&quot;:{
+      &quot;range&quot;:{
+         &quot;rating&quot;:{
+            &quot;gte&quot;:3.5
+         }
+      }
+   }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{
+   &quot;took&quot;:31, &quot;timed_out&quot;:false, &quot;_shards&quot;:{&quot;total&quot;:10, &quot;successful&quot;:10, &quot;failed&quot;:0},
+   &quot;hits&quot;:{
+      &quot;total&quot;:3, &quot;max_score&quot;:1.0, &quot;hits&quot;:[
+         {
+            &quot;_index&quot;:&quot;schools&quot;, &quot;_type&quot;:&quot;school&quot;, &quot;_id&quot;:&quot;2&quot;, &quot;_score&quot;:1.0,
+            &quot;_source&quot;:{
+               &quot;name&quot;:&quot;Saint Paul School&quot;, &quot;description&quot;:&quot;ICSE Affiliation&quot;,
+               &quot;street&quot;:&quot;Dawarka&quot;, &quot;city&quot;:&quot;Delhi&quot;, &quot;state&quot;:&quot;Delhi&quot;, 
+               &quot;zip&quot;:&quot;110075&quot;, &quot;location&quot;:[28.5733056, 77.0122136], &quot;fees&quot;:5000, 
+               &quot;tags&quot;:[&quot;Good Faculty&quot;, &quot;Great Sports&quot;], &quot;rating&quot;:&quot;4.5&quot;
+            }
+         }, 
+
+         {
+            &quot;_index&quot;:&quot;schools_gov&quot;, &quot;_type&quot;:&quot;school&quot;, &quot;_id&quot;:&quot;2&quot;, &quot;_score&quot;:1.0, 
+            &quot;_source&quot;:{
+               &quot;name&quot;:&quot;Government School&quot;, &quot;description&quot;:&quot;State Board Affiliation&quot;,
+               &quot;street&quot;:&quot;Hinjewadi&quot;, &quot;city&quot;:&quot;Pune&quot;, &quot;state&quot;:&quot;MH&quot;, &quot;zip&quot;:&quot;411057&quot;,
+               &quot;location&quot;:[18.599752, 73.6821995] &quot;fees&quot;:500, 
+               &quot;tags&quot;:[&quot;Great Sports&quot;], &quot;rating&quot;:&quot;4&quot;
+            }
+         },
+
+         {
+            &quot;_index&quot;:&quot;schools&quot;, &quot;_type&quot;:&quot;school&quot;, &quot;_id&quot;:&quot;3&quot;, &quot;_score&quot;:1.0,
+            &quot;_source&quot;:{
+               &quot;name&quot;:&quot;Crescent School&quot;, &quot;description&quot;:&quot;State Board Affiliation&quot;,
+               &quot;street&quot;:&quot;Tonk Road&quot;, &quot;city&quot;:&quot;Jaipur&quot;, &quot;state&quot;:&quot;RJ&quot;, &quot;zip&quot;:&quot;176114&quot;, 
+               &quot;location&quot;:[26.8535922, 75.7923988], &quot;fees&quot;:2500,
+               &quot;tags&quot;:[&quot;Well equipped labs&quot;], &quot;rating&quot;:&quot;4.5&quot;
+            }
+         }
+      ]
+   }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;其他类型的期限级查询&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;存在的查询 - 如果某一个字段有非空值&lt;/li&gt;
+    &lt;li&gt;缺失的查询 - 与存在的查询相反&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;复合查询&quot;&gt;复合查询&lt;/h3&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;这些查询是通过使用如和，或，非和或等，用于不同索引或具有函数调用等的布尔运算符彼此合并的不同查询的集合。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+</description>
+        <pubDate>Sat, 14 Oct 2017 19:25:35 +0800</pubDate>
+        <link>http://localhost:4000/web/2017/10/14/ElasticSearch/</link>
+        <guid isPermaLink="true">http://localhost:4000/web/2017/10/14/ElasticSearch/</guid>
+        
+        <category>web</category>
+        
+        
+        <category>web</category>
+        
+      </item>
+    
+      <item>
+        <title>Mysql按周，月，日分组统计数据</title>
+        <description>&lt;ul&gt;
+  &lt;li&gt;使用函数：&lt;code class=&quot;highlighter-rouge&quot;&gt;DATE_FORMAT&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;PHP版本要求：&lt;code class=&quot;highlighter-rouge&quot;&gt;(PHP 5 &amp;gt;= 5.2.0, PHP 7)&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;语法：&lt;code class=&quot;highlighter-rouge&quot;&gt;date_format(object,format)&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+&lt;h2 id=&quot;date_format-参数&quot;&gt;DATE_FORMAT 参数&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;object	必需。规定由 date_create() 返回的 DateTime 对象。
+format	必需。规定日期的格式。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+&lt;h2 id=&quot;完整sql语句&quot;&gt;完整SQL语句&lt;/h2&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;select DATE_FORMAT(create_time,’%Y%u’) weeks,count(caseid) count from tc_case group by weeks;&lt;br /&gt;
+select DATE_FORMAT(create_time,’%Y%m%d’) days,count(caseid) count from tc_case group by days;&lt;br /&gt;
+select DATE_FORMAT(create_time,’%Y%m’) months,count(caseid) count from tc_case group by months;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+&lt;h2 id=&quot;修饰符&quot;&gt;修饰符&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;%M 月名字(January……December)&lt;/li&gt;
+  &lt;li&gt;%W 星期名字(Sunday……Saturday)&lt;/li&gt;
+  &lt;li&gt;%D 有英语前缀的月份的日期(1st, 2nd, 3rd, 等等。）&lt;/li&gt;
+  &lt;li&gt;%Y 年, 数字, 4 位&lt;/li&gt;
+  &lt;li&gt;%y 年, 数字, 2 位&lt;/li&gt;
+  &lt;li&gt;%a 缩写的星期名字(Sun……Sat)&lt;/li&gt;
+  &lt;li&gt;%d 月份中的天数, 数字(00……31)&lt;/li&gt;
+  &lt;li&gt;%e 月份中的天数, 数字(0……31)&lt;/li&gt;
+  &lt;li&gt;%m 月, 数字(01……12)&lt;/li&gt;
+  &lt;li&gt;%c 月, 数字(1……12)&lt;/li&gt;
+  &lt;li&gt;%b 缩写的月份名字(Jan……Dec)&lt;/li&gt;
+  &lt;li&gt;%j 一年中的天数(001……366)&lt;/li&gt;
+  &lt;li&gt;%H 小时(00……23)&lt;/li&gt;
+  &lt;li&gt;%k 小时(0……23)&lt;/li&gt;
+  &lt;li&gt;%h 小时(01……12)&lt;/li&gt;
+  &lt;li&gt;%I 小时(01……12)&lt;/li&gt;
+  &lt;li&gt;%l 小时(1……12)&lt;/li&gt;
+  &lt;li&gt;%i 分钟, 数字(00……59)&lt;/li&gt;
+  &lt;li&gt;%r 时间,12 小时(hh:mm:ss [AP]M)&lt;/li&gt;
+  &lt;li&gt;%T 时间,24 小时(hh:mm:ss)&lt;/li&gt;
+  &lt;li&gt;%S 秒(00……59)&lt;/li&gt;
+  &lt;li&gt;%s 秒(00……59)&lt;/li&gt;
+  &lt;li&gt;%p AM或PM&lt;/li&gt;
+  &lt;li&gt;%w 一个星期中的天数(0=Sunday ……6=Saturday ）&lt;/li&gt;
+  &lt;li&gt;%U 星期(0……52), 这里星期天是星期的第一天&lt;/li&gt;
+  &lt;li&gt;%u 星期(0……52), 这里星期一是星期的第一天&lt;/li&gt;
+  &lt;li&gt;%% 一个文字“%”。&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Sat, 14 Oct 2017 19:25:35 +0800</pubDate>
+        <link>http://localhost:4000/web/2017/10/14/PHP-DATE-FORMAT/</link>
+        <guid isPermaLink="true">http://localhost:4000/web/2017/10/14/PHP-DATE-FORMAT/</guid>
+        
+        <category>php</category>
+        
+        <category>MySQL</category>
+        
+        
+        <category>web</category>
+        
+      </item>
+    
+      <item>
+        <title>PHP常用的四种排序</title>
+        <description>&lt;h1 id=&quot;phpsort&quot;&gt;phpsort&lt;/h1&gt;
+&lt;p&gt;php常用排序算法整理&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;包括了冒泡排序、选择排序、插入排序、快速排序这四种基本排序&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://github.com/HerbCollins/phpsort&quot;&gt;程序源码&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;冒泡排序&quot;&gt;冒泡排序&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;原理&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;冒泡排序是对一组数据相邻之间比较大小，比较之后要把谁放前谁放后就要看你是想升序排列还是降序排列了。整个过程是两组循环。
+比如一组数据 （ 6, 6, 3, 1, 8, 7, 2, 4 ），按升序排列
+第1次比较：	 &lt;font color=&quot;red&quot;&gt;6 , 6 &lt;/font&gt;, 3 , 1 , 8 , 7 , 2 , 4
+第2次比较：	 6 , &lt;font color=&quot;red&quot;&gt;3 , 6&lt;/font&gt; , 1 , 8 , 7 , 2 , 4
+第3次比较：	 6 , 3 , &lt;font color=&quot;red&quot;&gt;1 ,6&lt;/font&gt;, 8 , 7 , 2 , 4
+第4次比较：	 6 , 3 , 1 ,&lt;font color=&quot;red&quot;&gt;6, 8 &lt;/font&gt;, 7 , 2 , 4
+第5次比较：	 6 , 3 , 1 ,6, &lt;font color=&quot;red&quot;&gt; 7 , 8 &lt;/font&gt;, 2 , 4
+第6次比较：	 6 , 3 , 1 ,6, 7 , &lt;font color=&quot;red&quot;&gt;2 , 8 &lt;/font&gt;, 4
+第7次比较：	 6 , 3 , 1 ,6, 7 , 2 ,&lt;font color=&quot;red&quot;&gt; 4 , 8 &lt;/font&gt;
+以上是第一轮比较，还要继续进行，接下来的比较和上面的比较过程一样，就不再累述。&lt;/p&gt;
+
+&lt;h2 id=&quot;选择排序&quot;&gt;选择排序&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;原理&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;“Selection Sort”通常被翻译成“选择排序”，Selection在英文中还有一个“被选中者”的意思。选择排序就是把一组数据中的第一个当做整个数组（n个数据）中的最小值，然后拿这个最小值去和剩余的数据依次比较，去剩余数据中真正的最小值，如果找到了就将这两个数据进行位置替换，这样就将整个数组中的最小值放到了第一位，当然如果没有找到，那第一个数据真的是最小值，那就不用替换。然后重新从第二个数据开始，将第二个数据当做是剩余n-1个数据中最小的，同样的进行比较、替换等步骤，直到进行到最后一位（如果是倒序排序，同理）。这样你就明白我为什么要先说一下“Selection”还有一个“被选中者”的意思了。&lt;/p&gt;
+
+&lt;h2 id=&quot;插入排序&quot;&gt;插入排序&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;原理&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;插入排序单从字面上是不好理解的，拿数组（ 6, 5, 3, 1, 8, 7, 2, 4 ）升序排序来举例，它其实是从第二位（5）开始为标记点，将第二位与它左边的第一个（6）进行比较，如果（6）比（5）大，这两个就进行交换，这样就变成了（ &lt;font color=&quot;red&quot;&gt;5 ，6 &lt;/font&gt; , 3, 1, 8, 7, 2, 4 ）,然后左边第一个（5）再与左边第二个比较（没有就继续下一轮），下一轮中，以第三位（3）为标记点，将（6）与（3）进行比较，交换，（3）与（5）比较，交换，然后再接着进行下一轮…依次类推&lt;/p&gt;
+
+&lt;h2 id=&quot;快速排序&quot;&gt;快速排序&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;原理&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;快排的过程就是拿数组中的第一个数作为切割点，遍历数组剩余的数据，依次与该切割点进行比较，比它小的另存一个数组中，比它大的也另存一个数组中，和它相等的同样放进另一个数组中，这样就用一个点切割出三个数组，分别是比它小的（后面称这个数组为左边数组）、比它大的（后面称这个数组为右边数组）还有和它相等的数组（后面称它为等同数组），然后将左边数组和比右边数组分别用这个方法递归切割，左边数组递归切割完成之后，将左边数组和等同数组合并（左边数组在前），然后再与右边数组递归切割好的进行合并，就是整个快排了。&lt;/p&gt;
+</description>
+        <pubDate>Wed, 02 Aug 2017 07:25:35 +0800</pubDate>
+        <link>http://localhost:4000/web/2017/08/02/PHP-Sort/</link>
+        <guid isPermaLink="true">http://localhost:4000/web/2017/08/02/PHP-Sort/</guid>
+        
+        <category>php</category>
+        
+        
+        <category>web</category>
+        
+      </item>
+    
+      <item>
+        <title>SASS安装与入门</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;Sass号称世界上最成熟、稳定和强大的CSS扩展语言，它扩展了CSS3，增加了规则、变量、混入、选择器、继承等等特性，它生成良好格式化的CSS3代码易于组织和维护。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;sass&quot;&gt;Sass？&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Sass(Syntactically Awesome StyleSheets)是一种CSS开发工具，提供了许多便利写法，大大节省了设计者的时间，使得CSS开发变得简单和可维护。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;安装&quot;&gt;安装&lt;/h2&gt;
+
+&lt;p&gt;安装Sass之前需要安装Ruby，因为Sass是由Ruby语言写的（不会Ruby不影响使用）。安装Ruby就不说了（网上一搜教程一大堆），安装好Ruby之后就要打开cmd（windows操作系统），敲一下命令了：&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gem install sass
+gem install compass
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;如果安装太慢，可以切换安装源，将自带的gem源改为国内的淘宝源&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gem source --remove https://rubygems.org/
+gem source -a https://ruby.taobao.org/
+gem source -l
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;入门&quot;&gt;入门&lt;/h2&gt;
+&lt;h3 id=&quot;编译&quot;&gt;编译&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;// 将input.scss编译成output.css
+sass input.scss output.css
+
+// 监视单个 Sass 文件，每次修改并保存时自动编译
+sass --watch input.scss:output.css
+
+// 监视整个文件夹
+sass --watch app/sass:public/stylesheets
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3 id=&quot;编码格式&quot;&gt;编码格式&lt;/h3&gt;
+&lt;p&gt;Sass 首先检查 Unicode byte order mark，然后是 @charset 声明，最后是 Ruby string encoding，假如都没有检测到，默认使用 UTF-8 编码。
+与 CSS 相同，使用 @charset 可以声明特定的编码格式。在样式文件的起始位置（前面没有任何空白与注释）插入 @charset “encoding-name”， Sass 将会按照给出的编码格式编译文件。注意所使用的编码格式必须可转换为 Unicode 字符集。
+Sass 以 UTF-8 编码输出 CSS 文件，当且仅当编译后的文件中包含非 ASCII 字符时，才会在输出文件中添加 @charset 声明，而在压缩模式下 (compressed mode) 使用 UTF-8 byte order mark 代替 @charset 声明语句。&lt;/p&gt;
+
+&lt;h3 id=&quot;变量&quot;&gt;变量&lt;/h3&gt;
+&lt;p&gt;sass可以使用变量，便于维护与修改
+SassScript 最普遍的用法就是变量，变量以美元符号开头，赋值方法与 CSS 属性的写法一样：&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$width: 5em;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;直接使用就可以调用变量&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#main {
+  width: $width;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;案例如下：&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//sass style
+//-----------------------------------
+$fontStack:    Helvetica, sans-serif;
+$primaryColor: #333;
+
+body {
+  font-family: $fontStack;
+  color: $primaryColor;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;编译之后&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//css style
+//-----------------------------------
+body {
+  font-family: Helvetica, sans-serif;
+  color: #333;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;嵌套&quot;&gt;嵌套&lt;/h3&gt;
+&lt;p&gt;sass可以进行选择器嵌套。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//sass style
+//-----------------------------------
+nav {
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li { display: inline-block; }
+
+  a {
+    display: block;
+    padding: 6px 12px;
+    text-decoration: none;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;编译之后&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//css style
+//-----------------------------------
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav li {
+  display: inline-block;
+}
+
+nav a {
+  display: block;
+  padding: 6px 12px;
+  text-decoration: none;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;导入&quot;&gt;导入&lt;/h3&gt;
+&lt;p&gt;sass导入其他sass文件之后编译，优于css的@import&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//sass style
+//-----------------------------------
+// _reset.scss
+
+html,
+body,
+ul,
+ol {
+   margin: 0;
+  padding: 0;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//sass style
+//-----------------------------------
+// base.scss 
+
+@import 'reset';
+
+body {
+  font-size: 100% Helvetica, sans-serif;
+  background-color: #efefef;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;编译之后&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//css style
+//-----------------------------------
+html, body, ul, ol {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #efefef;
+  font-size: 100% Helvetica, sans-serif;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3 id=&quot;mixin&quot;&gt;mixin&lt;/h3&gt;
+
+&lt;p&gt;sass中可用mixin定义一些代码片段，且可传参数，方便日后根据需求调用。从此处理css3的前缀兼容轻松便捷。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//sass style
+//-----------------------------------
+@mixin box-sizing ($sizing) {
+    -webkit-box-sizing:$sizing;     
+       -moz-box-sizing:$sizing;
+            box-sizing:$sizing;
+}
+.box-border{
+    border:1px solid #ccc;
+    @include box-sizing(border-box);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;编译之后&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//css style
+//-----------------------------------
+.box-border {
+  border: 1px solid #ccc;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;扩展继承&quot;&gt;扩展/继承&lt;/h3&gt;
+&lt;p&gt;sass可通过@extend来实现代码组合声明，使代码更加优越简洁。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//sass style
+//-----------------------------------
+.message {
+  border: 1px solid #ccc;
+  padding: 10px;
+  color: #333;
+}
+
+.success {
+  @extend .message;
+  border-color: green;
+}
+
+.error {
+  @extend .message;
+  border-color: red;
+}
+
+.warning {
+  @extend .message;
+  border-color: yellow;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;编译之后&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//css style
+//-----------------------------------
+.message, .success, .error, .warning {
+  border: 1px solid #cccccc;
+  padding: 10px;
+  color: #333;
+}
+
+.success {
+  border-color: green;
+}
+
+.error {
+  border-color: red;
+}
+
+.warning {
+  border-color: yellow;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;运算&quot;&gt;运算&lt;/h3&gt;
+&lt;p&gt;sass可进行简单的加减乘除运算等&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//sass style
+//-----------------------------------
+.container { width: 100%; }
+
+article[role=&quot;main&quot;] {
+  float: left;
+  width: 600px / 960px * 100%;
+}
+
+aside[role=&quot;complimentary&quot;] {
+  float: right;
+  width: 300px / 960px * 100%;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;编译之后&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//css style
+//-----------------------------------
+.container {
+  width: 100%;
+}
+
+article[role=&quot;main&quot;] {
+  float: left;
+  width: 62.5%;
+}
+
+aside[role=&quot;complimentary&quot;] {
+  float: right;
+  width: 31.25%;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3 id=&quot;颜色&quot;&gt;颜色&lt;/h3&gt;
+&lt;p&gt;sass中集成了大量的颜色函数，让变换颜色更加简单。&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//sass style
+//-----------------------------------
+$linkColor: #08c;
+a {
+    text-decoration:none;
+    color:$linkColor;
+    &amp;amp;:hover{
+      color:darken($linkColor,10%);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;编译之后&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//css style
+//-----------------------------------
+a {
+  text-decoration: none;
+  color: #0088cc;
+}
+a:hover {
+  color: #006699;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+</description>
+        <pubDate>Tue, 01 Aug 2017 01:43:35 +0800</pubDate>
+        <link>http://localhost:4000/web/2017/08/01/Sass-Install-Start/</link>
+        <guid isPermaLink="true">http://localhost:4000/web/2017/08/01/Sass-Install-Start/</guid>
+        
+        <category>sass</category>
+        
+        <category>css</category>
+        
+        
+        <category>web</category>
+        
+      </item>
+    
+      <item>
+        <title>数据库中保存会话</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;在PHP中我们常常使用 SESSION 保存会话机制，SESSION通常会将会话数据保存到服务器文本文件中（通常在系统的临时目录，如UNIX里的/tmp目录），文件名匹配会话ID。除了这一种机制管理会话之外，PHP还提供另一种机制——在数据库中存储会话数据。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;使用数据库存储会话机制原因有下：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;提高系统安全性：很多个程序同时需要访问临时目录中的会话信息，难免会引发数据安全问题；&lt;/li&gt;
+  &lt;li&gt;可以更方便的搜索Web站点更多的会话信息；&lt;/li&gt;
+  &lt;li&gt;多服务器时可以更方便的访问会话信息：同一个用户可以在一次会话中对不同服务器的多个页面发起请求；&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;具体操作&quot;&gt;具体操作&lt;/h2&gt;
+&lt;h3 id=&quot;1建立会话表&quot;&gt;1、建立会话表&lt;/h3&gt;
+&lt;p&gt;这个表可以在某个已有的数据库中创建，也可以在单独的数据库中创建，能够连接查询到就行。
+会话表至少需要三个字段，正常生产环境下还要必须一个用户ID字段（因情况而定），如下：&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;字段类型&lt;/th&gt;
+      &lt;th&gt;保存的数据&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;CHAR(32)&lt;/td&gt;
+      &lt;td&gt;会话ID&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;TEXT&lt;/td&gt;
+      &lt;td&gt;会话数据&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;TIMESTAMP&lt;/td&gt;
+      &lt;td&gt;会话数据最后一次访问时间&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;CREATE TABLE sessions (
+    id CHAR(32) NOT NULL,
+    data TEXT,
+    last_accessed TIMESTAMP NOT NULL,
+    PRIMARY KEY (id)
+);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3 id=&quot;2定义会话函数&quot;&gt;2、定义会话函数&lt;/h3&gt;
+&lt;p&gt;这里将用到session_set_save_handler()函数来让PHP使用我们自定义的与数据库交互的函数。
+session_set_save_handler()函数需要6个参数，如下：&lt;/p&gt;
+
+&lt;p&gt;次序 | 函数被调用的时机
+—|—
+1 | 启动会话
+2 | 关闭会话
+3 | 读取会话数据
+4 | 写入会话数据
+5 | 销毁会话数据
+6 | 消除旧数据
+所以我们需要6个相应的函数，示例代码如下：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$sdbc = NULL;  // 将用来存储数据库连接
+/**
+* 打开会话
+* @return true;
+*
+*/
+function open_session(){
+    global $sdbc;
+    // 主机、数据库账号、数据库密码、sessions表所在数据库名称
+    $sdbc = mysqli_connect('localhost','root','password','test');
+    return true;
+}
+
+/**
+* 关闭会话
+*/
+function close_session(){
+    global $sdbc;
+    return mysqli_close($sdbc);
+}
+
+
+/**
+* 读取session函数
+* @param $sid 会话ID
+* @return $data | ''
+*/
+function read_session($sid){
+    global $sdbc;
+    $q = sprintf('SELECT data FROM sessions WHERE id = &quot;%s&quot;' , mysqli_real_escape_string($sdbc , $sid));
+    $r = mysqli_query($sdbc , $q);
+    if(mysqli_num_rows($r) == 1){
+        list($data) = mysqli_fetch_array($r ,MYSQLI_NUM);
+        return $data;
+    }else{
+        return '';
+    }
+}
+
+/**
+* 写入session函数
+* @param $sid 会话ID
+* @param $data 会话数据
+* @return true;
+*/
+function write_session( $sid , $data ){
+    global $sdbc;
+    $q = sprintf('REPLACE INTO sessions (id , data) VALUES (&quot;%s&quot; ,&quot;%s&quot;)' , mysqli_real_escape_string($sid , $data));
+    $r = mysqli_query($sdbc , $q);
+    
+    return true;
+}
+
+/**
+* 销毁session函数
+* @param $sid 会话ID
+* @return true
+*/
+function destroy_session($sid){
+    global $sdbc;
+    $q = sprintf('DELETE FROM sessions WHERE id = &quot;%s&quot;',mysqli_real_escape_string($sdbc , $sid));
+    
+    $r = mysqli_query($sdbc , $q);
+    
+    // clear session
+    $_SESSION = array();
+    
+    return ture;
+}
+
+/**
+* 消除旧数据
+* @param $expire
+* @return ture
+*/
+function clean_session($expire){
+    global $sdbc;
+    
+    $q = sprintf('DELETC FROM sessions WHERE DATE_ADD(INTERVAL &quot;%d&quot; SECOND) &amp;lt; NEW()',(int)$expire);
+    
+    $r = mysqli_query($sdbc , $q);
+    return true;
+}
+
+/*************************/
+/***** END FUNCTIONS *****/
+/*************************/
+
+session_set_save_handler('open_session','close_session','read_session','write_session','destroy_session','clean_session');
+
+session_start();
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.w3school.com.cn/php/func_mysql_real_escape_string.asp&quot;&gt;mysql_real_escape_string()&lt;/a&gt; 函数转义 SQL 语句中使用的字符串中的特殊字符。可使用本函数来预防数据库攻击。&lt;/p&gt;
+
+</description>
+        <pubDate>Tue, 01 Aug 2017 01:43:35 +0800</pubDate>
+        <link>http://localhost:4000/web/2017/08/01/MySQL-Save-Session/</link>
+        <guid isPermaLink="true">http://localhost:4000/web/2017/08/01/MySQL-Save-Session/</guid>
+        
+        <category>php</category>
+        
+        <category>MySQL</category>
+        
+        
+        <category>web</category>
+        
+      </item>
+    
+      <item>
+        <title>PHP多维数组排序</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;多维数组在PHP中被用到，处理数据库数据以及其他数据整理等等。或许我们可以随便写一个函数进行相应的操作处理，但不一定就是最简单最高效的方法。看过了《深入理解PHP——高级技巧、面向对象与核心技术》第三版（原版为《PHP Advance and Object-Oriented Programming Visual QuickPro Guide》Third Edition）之后深受感触。希望记录下来以备使用。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;多维数组排序&quot;&gt;多维数组排序&lt;/h2&gt;
+&lt;p&gt;PHP排序我们都知道内置了很多函数，比如==sort()==、==ksort()==、==asort()==、==rsort()== 等等，让我们能够很快的处理一维数组排序问题，但是对于二维数组，这些内置的排序函数就没有什么作用了，所以需要内置函数 ==usort()==、==uksort()==、==uasort()== 用我们自己定义的函数排序。比如：&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$arr = array(
+    array('key1'=&amp;gt;123,'key2'=&amp;gt;234,'key3'=&amp;gt;456),
+    array('key1'=&amp;gt;39,'key2'=&amp;gt;96,'key3'=&amp;gt;12),
+    array('key1'=&amp;gt;99,'key2'=&amp;gt;18,'key3'=&amp;gt;32)
+);
+
+/** 
+*
+*  自定义排序函数
+*  @功能 让数组通过'key1'进行排序
+*
+**/
+function asc_number_sort($x , $y){
+    if($x['key1'] &amp;gt; $y['key1']){
+        // 返回true就是将第一个参数排在前面
+        return true;
+    }elseif($x['key1'] &amp;lt; $y['key1']){
+        // 返回false就是将第一个参数排在后面
+        return false;
+    }
+    else{
+        // 返回0就是这两个参数相等
+        return 0;
+    }
+}
+
+// 调用函数
+usort($arr , 'asc_number_sort');
+
+// 打印函数
+echo &quot;&amp;lt;pre&amp;gt;&quot;;
+print_r($arr);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;返回结果如下:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Array
+(
+    [0] =&amp;gt; Array
+        (
+            [key1] =&amp;gt; 39
+            [key2] =&amp;gt; 96
+            [key3] =&amp;gt; 12
+        )
+
+    [1] =&amp;gt; Array
+        (
+            [key1] =&amp;gt; 99
+            [key2] =&amp;gt; 18
+            [key3] =&amp;gt; 32
+        )
+
+    [2] =&amp;gt; Array
+        (
+            [key1] =&amp;gt; 123
+            [key2] =&amp;gt; 234
+            [key3] =&amp;gt; 456
+        )
+
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;通过此案例可以扩展到对其他键名、键值排序，也可对字符串进行排序（需要用到字符串比较函数 ==strcasecmp()== 、==strcmp()== 等等）。同样也可以应用到数据库检索出的数组处理中。&lt;/p&gt;
+
+</description>
+        <pubDate>Mon, 31 Jul 2017 19:25:35 +0800</pubDate>
+        <link>http://localhost:4000/web/2017/07/31/PHP-Array-Sort/</link>
+        <guid isPermaLink="true">http://localhost:4000/web/2017/07/31/PHP-Array-Sort/</guid>
+        
+        
+        <category>web</category>
+        
+      </item>
+    
+  </channel>
+</rss>
