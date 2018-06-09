@@ -3,7 +3,7 @@ layout: post
 title:  "Mysql按周，月，日分组统计数据"
 date:   2017-10-14 13:25:35 +0200
 tags: [php,MySQL]
-category: [php]
+category: [web]
 ---
 
 - 使用函数：`DATE_FORMAT`

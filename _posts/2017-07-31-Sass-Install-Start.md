@@ -2,7 +2,7 @@
 layout: post
 title:  "SASS安装与入门"
 date:   2017-07-31 19:43:35 +0200
-category: [sass]
+category: [web]
 tags: [sass,css]
 ---
 

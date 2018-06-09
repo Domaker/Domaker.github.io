@@ -2,7 +2,7 @@
 layout: post
 title:  "数据库中保存会话"
 date:   2017-07-31 19:43:35 +0200
-category: [php]
+category: [web]
 tags: [php,MySQL]
 ---
 

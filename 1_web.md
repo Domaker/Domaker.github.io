@@ -1,14 +1,16 @@
 ---
 layout: new
-title: "Articles"
-description: "Articles"  
+title: "Web"
+description: "Web build"  
 ---
 
 
 <div class="container articles-page">
 	<div class="row">
 		<div class="col-xs-12 col-md-12 col-lg-12">
-			{% for post in site.posts %}
+			{% for category in site.category %}
+			{% if category[0] == "web" %}
+			{% for post in category[1] %}
 			<div class="panel">
 				<div class="panel-body">
 					<h1><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h1>
@@ -25,6 +27,8 @@ description: "Articles"
 					<p>{{ post.excerpt }}</p>
 				</div>
 			</div>
+			{% endfor %}
+			{% endif %}
 			{% endfor %}
 			<!-- Pager -->
 			{% if paginator.total_pages > 1 %}
