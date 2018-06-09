@@ -409,6 +409,7 @@ a:hover {
 					<div class="social-link">
 						<span><a href="https://github.com/Domaker"><i class="fa fa-fw fa-github fa-lg"></i></a></span>
 						<span><a href=""><i class="fa fa-fw fa-wechat fa-lg"></i></a></span>
+						<span  data-toggle="tooltip" data-placement="top" title="mail:maker68@163.com"><a href=""><i class="fa fa-fw fa-envelope"></i></a></span>
 						<span><a href="/feed.xml"><i class="fa fa-fw fa-rss fa-lg"></i></a></span>
 					</div>
 					<p>© 2018 Domaker ❖ Powered by Jekyll.</p>
@@ -417,6 +418,7 @@ a:hover {
 		</div>
 	</div>
 	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			if($('.footer').offset().top <= 579){
@@ -424,7 +426,7 @@ a:hover {
 			}else{
 				$('.footer').removeClass('at-bottom');
 			}
-			console.log($('.footer').offset().top)
+			$('[data-toggle="tooltip"]').tooltip()
 		});
 	</script>
 </body>

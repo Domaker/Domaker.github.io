@@ -11,6 +11,12 @@ description: "个人博客"
 					<p><b>Study & Create & Record & Share</b></p>
 					<hr>
 					<p>CN. <b>ZHUHAI · Web developer ·</b> view my projects on <a href="https://github.com/Domaker"><b> GitHub</b></a></p>
+					<q>
+						假如有两个完全相同的世界，一个世界里有你，一个世界里没有你，而你的价值，就是让这两个做到最大的不同。
+					</q>
+					<p class="text-right">
+						———— 让世界因你不同
+					</p>
 				</div>
 			</div>
 		</div>
@@ -25,14 +31,14 @@ description: "个人博客"
 				</div>
 				<div class="panel">
 					<div class="panel-body">
-						{% for post in paginator.posts limit:1 %}
+						{% for post in site.posts limit:1 %}
 							<h1>{{ post.title }}</h1>
 							<p>{{ post.content }}</p>
 							<div class="text-right">
     						<img src="http://static.wawmam.com/zhangmingliang.png" style="width:200px;">
     						</div>
-							<div class="article-attrs">
-								<span class="pull-left">
+							<div class="article-attrs text-right">
+								<span>
 									<i class="fa fa-fw fa-calendar"></i> {{ post.date | date: "%Y-%m-%d" }}
 								</span>
 								<span><i class="fa fa-fw fa-tags"></i> 
