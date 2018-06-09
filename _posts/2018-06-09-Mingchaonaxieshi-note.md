@@ -3,7 +3,7 @@ layout: post
 title:  "《明朝那些事儿》——笔记"
 date:   2018-06-08 12:57 +0200
 tags: [php,Redis]
-categories: [web]
+categories: [read]
 ---
 ### 第十一章 洪都的奇迹
 
