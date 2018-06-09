@@ -9,7 +9,7 @@ description: "Business Administration"
             <div class=" domaker infomation">
                 <div class="content text-center">
                     <h1>BA</h1>
-                    <p><b>工商管理学习笔记</b></p>
+                    <p><b>Business Administration · 工商管理学习笔记</b></p>
                 </div>
             </div>
             {% for category in site.categories %}

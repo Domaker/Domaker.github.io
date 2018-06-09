@@ -9,8 +9,8 @@ description: "Web build"
 			<div class=" domaker infomation">
                 <div class="content text-center">
                     <h1>Web</h1>
-                    <p><b>网站开发相关记录</b></p>
-                    <p><b>[ Html/JS/CSS、PHP、Redis、ElasticSearch、MYSQL ]</b></p>
+                    <p><b>Web Development · 网站开发学习笔记</b></p>
+                    <p><b>[ Html/JS/CSS 、 PHP 、 Redis 、 ElasticSearch 、 MYSQL ]</b></p>
                 </div>
             </div>
 			{% for category in site.categories %}
