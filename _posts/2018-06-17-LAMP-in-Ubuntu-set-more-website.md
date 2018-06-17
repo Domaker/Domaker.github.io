@@ -14,7 +14,8 @@ categories: [web]
     - ServiceName 填写站点域名
     - DocumentRoot 填写网站根目录
     - Directory 填写网站根目录
-```<VirtualHost *> 
+    
+    ```<VirtualHost *> 
          ServerAdmin webmaster@localhost 
          ServerName www.xxx.com  
          CustomLog   /var/log/apache2/site1.xxxx.com-access.log combined 
@@ -25,7 +26,7 @@ categories: [web]
                  Order allow,deny 
                  allow from all 
          </Directory> 
-</VirtualHost>```
+    </VirtualHost>```
 
 5. 保存文件并退出编辑器(在编辑模式时，按```esc```键，然后输入```:wq```)
 
@@ -41,6 +42,8 @@ categories: [web]
 ```
 127.0.0.1       localhost
 127.0.0.1       www.xxx.com
+
+
 # The following lines are desirable for IPv6 capable hosts
 ::1     localhost ip6-localhost ip6-loopback
 ff02::1 ip6-allnodes
