@@ -3,6 +3,7 @@ layout: post
 title:  "LAMP在ubuntu系统中配置多虚拟主机站点"
 date:   2018-06-17 16:11 +0200
 categories: [web]
+tags: [lamp]
 ---
 ### 1. 增加配置文件
 
@@ -15,7 +16,8 @@ categories: [web]
     - DocumentRoot 填写网站根目录
     - Directory 填写网站根目录
     
-    ```<VirtualHost *>
+    ```
+    <VirtualHost *>
 
          ServerAdmin webmaster@localhost 
 
@@ -36,8 +38,9 @@ categories: [web]
                  allow from all 
 
          </Directory> 
-         
-    </VirtualHost>```
+
+    </VirtualHost>
+    ```
 
 5. 保存文件并退出编辑器(在编辑模式时，按```esc```键，然后输入```:wq```)
 
