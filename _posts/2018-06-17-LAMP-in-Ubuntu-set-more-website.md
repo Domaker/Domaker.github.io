@@ -15,17 +15,28 @@ categories: [web]
     - DocumentRoot 填写网站根目录
     - Directory 填写网站根目录
     
-    ```<VirtualHost *> 
+    ```<VirtualHost *>
+
          ServerAdmin webmaster@localhost 
+
          ServerName www.xxx.com  
+
          CustomLog   /var/log/apache2/site1.xxxx.com-access.log combined 
+
          DocumentRoot /var/www/site1/ 
+
          <Directory /var/www/site1/> 
+
                  Options Indexes FollowSymLinks MultiViews 
+
                  AllowOverride all 
+
                  Order allow,deny 
+
                  allow from all 
+
          </Directory> 
+         
     </VirtualHost>```
 
 5. 保存文件并退出编辑器(在编辑模式时，按```esc```键，然后输入```:wq```)
