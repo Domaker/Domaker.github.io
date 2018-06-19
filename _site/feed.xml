@@ -5,9 +5,87 @@
     <description>Domaker|张明亮</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 09 Jun 2018 23:18:25 +0800</pubDate>
-    <lastBuildDate>Sat, 09 Jun 2018 23:18:25 +0800</lastBuildDate>
+    <pubDate>Tue, 19 Jun 2018 11:12:12 +0800</pubDate>
+    <lastBuildDate>Tue, 19 Jun 2018 11:12:12 +0800</lastBuildDate>
     <generator>Jekyll v3.8.3</generator>
+    
+      <item>
+        <title>LAMP在ubuntu系统中配置多虚拟主机站点</title>
+        <description>&lt;h3 id=&quot;1-增加配置文件&quot;&gt;1. 增加配置文件&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;cd /etc/apache2/sites-available&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;cp 000-default.conf 001-default.conf&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;vim 001-default.conf &lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;编写内容(按&lt;code class=&quot;highlighter-rouge&quot;&gt;i&lt;/code&gt;键编辑)&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;ServiceName 填写站点域名&lt;/li&gt;
+      &lt;li&gt;DocumentRoot 填写网站根目录&lt;/li&gt;
+      &lt;li&gt;Directory 填写网站根目录&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &amp;lt;VirtualHost *&amp;gt;
+
+      ServerAdmin webmaster@localhost 
+
+      ServerName www.xxx.com  
+
+      CustomLog   /var/log/apache2/site1.xxxx.com-access.log combined 
+
+      DocumentRoot /var/www/site1/ 
+
+      &amp;lt;Directory /var/www/site1/&amp;gt; 
+
+              Options Indexes FollowSymLinks MultiViews 
+
+              AllowOverride all 
+
+              Order allow,deny 
+
+              allow from all 
+
+      &amp;lt;/Directory&amp;gt; 
+
+ &amp;lt;/VirtualHost&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;保存文件并退出编辑器(在编辑模式时，按&lt;code class=&quot;highlighter-rouge&quot;&gt;esc&lt;/code&gt;键，然后输入&lt;code class=&quot;highlighter-rouge&quot;&gt;:wq&lt;/code&gt;)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;2-创建软连接&quot;&gt;2. 创建软连接&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ln -s /etc/apache2/sites-available/001-default.conf /etc/apache2/sites-enabled/001-default.conf&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;3-修改hosts文件&quot;&gt;3. 修改hosts文件&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;vim /etc/hosts&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;编写内容(按&lt;code class=&quot;highlighter-rouge&quot;&gt;i&lt;/code&gt;键编辑)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;127.0.0.1       localhost
+127.0.0.1       www.xxx.com
+
+
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+</description>
+        <pubDate>Sun, 17 Jun 2018 22:11:00 +0800</pubDate>
+        <link>http://localhost:4000/web/2018/06/17/LAMP-in-Ubuntu-set-more-website/</link>
+        <guid isPermaLink="true">http://localhost:4000/web/2018/06/17/LAMP-in-Ubuntu-set-more-website/</guid>
+        
+        <category>lamp</category>
+        
+        
+        <category>web</category>
+        
+      </item>
     
       <item>
         <title>《明朝那些事儿》——笔记</title>
